@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CustomAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/front', function () {
-    return view('front');
-});
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('/login', [CustomAuthController::class, 'index'])->name('login');
+    Route::post('/login', [CustomAuthController::class, 'authenticate'])->name('login.authenticate');
 
-Route::get('/back', function () {
-    return view('back');
+    Route::get('/dashboard', function(){
+        echo 'dashboard';
+    })->name('dashboard')->middleware('auth');
 });
