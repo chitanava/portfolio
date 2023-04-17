@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\CustomAuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\CustomAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,15 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/admin', function(){
+    echo 'admin';
+})->middleware('auth');
 
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/login', [CustomAuthController::class, 'index'])->name('login');
     Route::post('/login', [CustomAuthController::class, 'authenticate'])->name('login.authenticate');
 
-    Route::get('/dashboard', function(){
-        echo 'dashboard';
-    })->name('dashboard')->middleware('auth');
+    Route::middleware('auth')->group(function(){
+        Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
+    });
 });

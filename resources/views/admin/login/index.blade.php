@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('admin.layout.auth')
 
 @section('content')
 <div class="flex h-screen justify-center items-center">
@@ -22,7 +22,7 @@
           <p class="text-sm text-error">{{ session('status') }}</p>
         @endif
         <div class="card-actions justify-end">
-          <button type="submit" class="btn btn-accent">Login</button>
+          <button type="submit" class="btn btn-accent">Log in</button>
         </div>
       </div>
     </form>

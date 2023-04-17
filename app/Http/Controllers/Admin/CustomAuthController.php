@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomAuthController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return view('admin.login.index');
     }
@@ -23,9 +23,11 @@ class CustomAuthController extends Controller
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
  
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.gallery');
         }
 
-        return redirect()->route('admin.login.index')->with('status', 'The username or password you entered is incorrect.');
+        return redirect()
+                    ->route('admin.login')
+                    ->with('status', 'The username or password you entered is incorrect.');
     }
 }
