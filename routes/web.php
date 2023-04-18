@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GalleryController;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Http\Controllers\Admin\CustomAuthController;
 
 /*
@@ -14,6 +15,22 @@ use App\Http\Controllers\Admin\CustomAuthController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/demo', function(){
+    $gallery = App\Models\Gallery::find(1);
+    $albums = $gallery->albums()->with(['images' => function(Builder $query){
+        $query->orderBy('ord', 'asc');
+    }])->orderBy('ord', 'asc')->get();
+    $images = $gallery->images()->orderBy('ord', 'asc')->get();
+
+    $merged = $albums->concat($images);
+
+    dd($merged->sortBy('ord')->toArray());
+});
+
+Route::get('/demo/sort', function(){
+    return view('sort');
+});
 
 Route::get('/admin', function(){
     echo 'admin';
