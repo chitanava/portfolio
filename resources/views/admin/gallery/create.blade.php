@@ -1,4 +1,6 @@
 <x-admin.layout.app>
+  <x-slot name="title">Create Gallery</x-slot>
+
   <x-slot name="breadcrumbs">
     <x-admin.breadcrumbs :items="[
         ['title' => 'Galleries', 'url' => route('admin.galleries')],

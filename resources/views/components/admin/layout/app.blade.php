@@ -12,7 +12,7 @@
       display: none;
     }
   </style>
-  <title>Admin</title>
+  <title>@isset($title) {{ $title }} - @endisset Admin</title>
 </head>
 <body
   class="no-animation"

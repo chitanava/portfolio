@@ -1,4 +1,6 @@
 <x-admin.layout.app>
+  <x-slot name="title">Edit Profile</x-slot>
+
   <x-slot name="breadcrumbs">
     <x-admin.breadcrumbs :items="[
         ['title' => 'Profile', 'url' => route('admin.profile')],

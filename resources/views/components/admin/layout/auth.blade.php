@@ -12,7 +12,7 @@
       display: none;
     }
   </style>
-  <title>Admin - Log in</title>
+  <title>Log in - Admin</title>
 </head>
 <body
   class="no-animation"
