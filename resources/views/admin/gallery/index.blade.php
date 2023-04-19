@@ -1,1 +1,1 @@
-@extends('admin.layout.app')
+<x-admin.layout.app></x-admin.layout.app>

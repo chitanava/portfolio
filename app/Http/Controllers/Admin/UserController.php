@@ -46,7 +46,7 @@ class UserController extends Controller
 
     public function profile()
     {
-        return view('admin.profile.index');
+        return view('admin.profile.edit');
     }
 
     public function update(Request $request): RedirectResponse
