@@ -40,10 +40,11 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/login', [UserController::class, 'login'])->name('login');
     Route::post('/login', [UserController::class, 'authenticate'])->name('authenticate');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
-    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
-    Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
 
     Route::middleware('auth')->group(function(){
+        Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+        Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
+        
         Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries');
     });
 });
