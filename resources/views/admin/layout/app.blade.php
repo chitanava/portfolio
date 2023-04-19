@@ -14,7 +14,16 @@
   </style>
   <title>Admin</title>
 </head>
-<body>
+<body
+  class="no-animation"
+    x-init="() => {
+      window.addEventListener('load', function() {
+        setTimeout(() => {
+          document.body.classList.remove('no-animation');
+        }, 500)
+      })
+    }"
+>
   <div class="drawer drawer-mobile">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
@@ -23,7 +32,7 @@
           {{ $breadcrumbs ?? '' }}
         </x-admin.header>
 
-        <main class="w-full max-w-7xl mx-auto px-6 gap-8 mb-6 flex flex-col">
+        <main class="w-full max-w-7xl mx-auto px-6 gap-8 mb-8 flex flex-col">
           @if (session('status'))
             <div class="alert alert-success shadow-sm">
               <div>
