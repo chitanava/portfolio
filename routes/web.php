@@ -33,15 +33,17 @@ Route::get('/demo/sort', function(){
 });
 
 Route::get('/admin', function(){
-    return redirect()->route('admin.gallery');
+    return redirect()->route('admin.galleries');
 })->middleware('auth');
 
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/login', [UserController::class, 'login'])->name('login');
     Route::post('/login', [UserController::class, 'authenticate'])->name('authenticate');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
 
     Route::middleware('auth')->group(function(){
-        Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
+        Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries');
     });
 });

@@ -12,7 +12,11 @@ module.exports = {
     'h-6',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'poppins': ['"Poppins"'],
+      },
+    },
   },
   plugins: [require("daisyui")],
 }

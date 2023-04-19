@@ -7,8 +7,8 @@
       <div class="card-body gap-4">
         @csrf
         <div class="form-control gap-2">
-          <input type="text" name="email" value="{{ old('email') }}" placeholder="Email" class="input input-bordered" />
-          @error('email')
+          <input type="text" name="username" value="{{ old('username') }}" placeholder="Username" class="input input-bordered" />
+          @error('username')
             <p class="text-sm text-error">{{ $message }}</p>
           @enderror
         </div>
