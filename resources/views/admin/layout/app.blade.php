@@ -7,6 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Poppins:ital,wght@0,400;0,600;1,400;1,600&display=swap"
   rel="stylesheet">
   @vite(['resources/css/back.css', 'resources/js/back.js'])
+  <style>
+    [x-cloak] {
+      display: none;
+    }
+  </style>
   <title>Admin</title>
 </head>
 <body>
