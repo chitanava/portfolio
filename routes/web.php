@@ -46,5 +46,11 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
         
         Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries');
+        Route::get('/galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
+        Route::post('/galleries', [GalleryController::class, 'store'])->name('galleries.store');
+        Route::get('/galleries/{gallery}', [GalleryController::class, 'show'])->name('galleries.show');
+        Route::get('/galleries/{gallery}/edit', [GalleryController::class, 'edit'])->name('galleries.edit');
+        Route::put('/galleries/{gallery}', [GalleryController::class, 'update'])->name('galleries.update');
+        Route::delete('/galleries/{gallery}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
     });
 });

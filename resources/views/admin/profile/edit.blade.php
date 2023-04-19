@@ -19,7 +19,7 @@
           </label>
           <input type="password" name="old_password" id="old_password" class="input input-bordered" />
           @error('old_password')
-            <p class="text-xs text-error px-1 py-2">{{ $message }}</p>
+            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
           @enderror
         </div>
         <div class="form-control w-full">
@@ -28,7 +28,7 @@
           </label>
           <input type="password" name="password" id="password" class="input input-bordered" />
           @error('password')
-            <p class="text-xs text-error px-1 py-2">{{ $message }}</p>
+            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
           @enderror
         </div>
         <div class="form-control w-full">
@@ -37,7 +37,7 @@
           </label>
           <input type="password" name="password_confirmation" id="password_confirmation" class="input input-bordered" />
           @error('password_confirmation')
-            <p class="text-xs text-error px-1 py-2">{{ $message }}</p>
+            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
           @enderror
         </div>
       </div>

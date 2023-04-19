@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
+            $table->boolean('active')->default(1);
             $table->unsignedInteger('ord')->default(999);
         });
     }
