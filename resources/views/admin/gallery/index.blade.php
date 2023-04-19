@@ -1,1 +1,1 @@
-This is gallery
+@extends('admin.layout.app')

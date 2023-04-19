@@ -15,6 +15,13 @@ class Gallery extends Model
         'title',
     ];
 
+    protected static function booted(): void
+    {
+        static::deleted(function (Gallery $gallery) {
+            $gallery->images()->delete();
+        });
+    }
+
     public function albums(): HasMany
     {
         return $this->hasMany(Album::class);
@@ -24,4 +31,5 @@ class Gallery extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+    
 }
