@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex h-screen justify-center items-center">
   <div class="card w-96 shadow-md">
-    <form action="{{ route('admin.login.authenticate') }}" method="POST" autocomplete="off">
+    <form action="{{ route('admin.authenticate') }}" method="POST" autocomplete="off">
       <div class="card-body gap-4">
         @csrf
         <div class="form-control gap-2">

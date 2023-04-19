@@ -5,15 +5,25 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
-class CustomAuthController extends Controller
+class UserController extends Controller
 {
-    public function index(Request $request)
+    public function login()
     {
         return view('admin.login.index');
     }
 
-    public function authenticate(Request $request)
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin.login');
+    }
+
+    public function authenticate(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'email' => 'required|email',

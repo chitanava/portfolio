@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GalleryController;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Http\Controllers\Admin\CustomAuthController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,12 +33,13 @@ Route::get('/demo/sort', function(){
 });
 
 Route::get('/admin', function(){
-    echo 'admin';
+    return redirect()->route('admin.gallery');
 })->middleware('auth');
 
 Route::prefix('admin')->name('admin.')->group(function(){
-    Route::get('/login', [CustomAuthController::class, 'index'])->name('login');
-    Route::post('/login', [CustomAuthController::class, 'authenticate'])->name('login.authenticate');
+    Route::get('/login', [UserController::class, 'login'])->name('login');
+    Route::post('/login', [UserController::class, 'authenticate'])->name('authenticate');
+    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
     Route::middleware('auth')->group(function(){
         Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
