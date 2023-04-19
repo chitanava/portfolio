@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Poppins:ital,wght@0,400;0,600;1,400;1,600&display=swap"
   rel="stylesheet">
   @vite(['resources/css/back.css', 'resources/js/back.js'])
   <title>Admin</title>
@@ -13,12 +13,12 @@
   <div class="drawer drawer-mobile">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
-      <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-8">
         <x-admin.header>
           {{ $breadcrumbs ?? '' }}
         </x-admin.header>
 
-        <main class="w-full max-w-7xl mx-auto px-6 gap-6 mb-6 flex flex-col">
+        <main class="w-full max-w-7xl mx-auto px-6 gap-8 mb-6 flex flex-col">
           @if (session('status'))
             <div class="alert alert-success shadow-sm">
               <div>
