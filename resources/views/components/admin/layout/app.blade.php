@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Poppins:ital,wght@0,400;0,600;1,400;1,600&display=swap"
   rel="stylesheet">
   @vite(['resources/css/back.css', 'resources/js/back.js'])
+  @livewireStyles
   <style>
     [x-cloak] {
       display: none;
@@ -25,7 +26,7 @@
     }"
 >
   <div class="drawer drawer-mobile">
-    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+    <input id="my-drawer" type="checkbox" class="drawer-toggle"/>
     <div class="drawer-content">
       <div class="flex flex-col gap-8">
         <x-admin.header>
@@ -51,6 +52,10 @@
       <x-admin.sidebar></x-admin.sidebar>
     </div>
   </div>
-  
+
+  {{ $modal ?? '' }}
+
+  @livewireScripts
+  @stack('footer-scripts')
 </body>
 </html>

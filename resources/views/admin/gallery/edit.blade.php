@@ -8,12 +8,11 @@
     ]"/>
   </x-slot>
   
-  <x-admin.page-header title="Edit Gallery">
-    <form action="{{ route('admin.galleries.destroy', $gallery->id) }}" method="POST">
-      @csrf
-      @method('DELETE')
-      <button class="btn btn-secondary">Delete gallery</button>
-    </form>
+  <x-admin.page-header title="Edit Gallery">    
+    <label 
+      for="modal-delete"
+      class="btn btn-secondary" 
+      onclick="Livewire.emit('delete', '{{ route('admin.galleries.destroy', $gallery->id) }}')">Delete gallery</label>
   </x-admin.page-header>
 
   <form action="{{ route('admin.galleries.update', $gallery->id) }}" method="POST">
@@ -48,4 +47,12 @@
       <button type="submit" class="btn btn-accent">Update</button>
     </div>
   </form>  
+
+  <x-slot:modal>
+    <x-admin.modal-delete>
+      <x-slot:title>Are you sure you want to delete the Gallery?</x-slot:title>
+      <x-slot:body>This action will permanently remove all data, including albums and images, associated with it.</x-slot:body>
+    </x-admin.modal-delete>
+  </x-slot:modal>
+
 </x-admin.layout.app>
