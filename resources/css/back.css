@@ -6,3 +6,11 @@
 body{
   @apply font-poppins;
 }
+
+/* .draggable-source--is-dragging a{
+  background-color: red;
+} */
+/* .draggable-mirror {
+  background-color: blue;
+  position: sticky!important;
+} */
