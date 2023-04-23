@@ -1,23 +1,23 @@
 <li 
   :style="{width: `${itemWidth}px`}"
   {{ $attributes->merge(
-    ['class' => 'py-4 px-6 grid gap-6 border-b border-b-base-200']
+    ['class' => 'grid gap-6 border-b border-b-base-200 py-2 border-l-4 border-base-200 mt-1 items-center justify-items-center']
   )}}
 >
 
-  <div wire:sortable.handle class="cursor-pointer self-start">
-    <x-admin.icon size="4" class="mx-auto">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+  <div wire:sortable.handle class="flex cursor-pointer">
+    <x-admin.icon size="6" class="mx-auto">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
     </x-admin.icon>
   </div>
 
   {{ $slot }}
 
-  <div class="text-center">
+  <div>
     {{ $active }}
   </div>
 
-  <div class="text-center">
+  <div>
     <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-sm btn-ghost btn-active btn-square mb-1">
           <x-admin.icon size="5">
