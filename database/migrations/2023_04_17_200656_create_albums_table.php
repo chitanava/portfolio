@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
-            $table->text('body')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('active')->default(1);
             $table->unsignedInteger('ord')->default(999);
             
             $table->foreignId('gallery_id')->constrained()->cascadeOnDelete();
