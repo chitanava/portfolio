@@ -13,12 +13,13 @@ class Album extends Model
 
     protected $fillable = [
         'title',
-        'body',
+        'description',
+        'active',
     ];
 
-    protected $appends = ['model'];
+    protected $appends = ['class'];
 
-    protected function model(): Attribute
+    protected function class(): Attribute
     {
         return new Attribute(
             get: fn () => Album::class,
