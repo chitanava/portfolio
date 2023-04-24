@@ -4,15 +4,20 @@
   <x-slot name="breadcrumbs">
     <x-admin.breadcrumbs :items="[
         ['title' => 'Galleries', 'url' => route('admin.galleries')],
+        ['title' => $gallery->title, 'url' => route('admin.galleries.show', $gallery->id)],
         ['title' => 'Edit']
     ]"/>
   </x-slot>
   
-  <x-admin.page-header title="Edit Gallery">    
+  <x-admin.page-header title="Edit {{ $gallery->title }}">    
     <label 
       for="modal-delete"
       class="btn btn-secondary" 
-      onclick="Livewire.emit('delete', '{{ route('admin.galleries.destroy', $gallery->id) }}')">Delete gallery</label>
+      onclick="Livewire.emit('delete', {
+          action: '{{ route('admin.galleries.destroy', $gallery->id) }}',
+          title: 'Are you sure you want to delete the Gallery?',
+          body: 'This action will permanently remove all data, including albums and images, associated with it.'
+        })">Delete gallery</label>
   </x-admin.page-header>
 
   <form action="{{ route('admin.galleries.update', $gallery->id) }}" method="POST">

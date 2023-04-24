@@ -27,7 +27,11 @@ class GalleryList extends Component
 
     public function delete($id)
     {
-        $this->emit('delete', route('admin.galleries.destroy', $id));
+        $this->emit('delete', [
+            'action' => route('admin.galleries.destroy', $id),
+            'title' => 'Are you sure you want to delete the Gallery?',
+            'body' => 'This action will permanently remove all data, including albums and images, associated with it.',
+        ]);
     }
 
     public function active($id)

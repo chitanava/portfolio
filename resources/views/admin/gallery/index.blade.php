@@ -15,10 +15,7 @@
   @livewire('admin.gallery-list')
 
   <x-slot:modal>
-    <x-admin.modal-delete>
-      <x-slot:title>Are you sure you want to delete the Gallery?</x-slot:title>
-      <x-slot:body>This action will permanently remove all data, including albums and images, associated with it.</x-slot:body>
-    </x-admin.modal-delete>
+    <x-admin.modal-delete />
   </x-slot:modal>
 
   @push('footer-scripts')
