@@ -31,9 +31,9 @@ class GalleryController extends Controller
         return redirect()->route('admin.galleries')->with('status', 'Gallery created.');
     }
 
-    public function show()
+    public function show(Gallery $gallery)
     {
-        //
+        return view('admin.gallery.show', ['gallery' => $gallery]);
     }
 
     public function edit(Gallery $gallery)
