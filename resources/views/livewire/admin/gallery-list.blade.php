@@ -20,6 +20,9 @@
 
             <x-slot:actions>
                 <li>
+                    <div class="divider hover:bg-transparent cursor-auto uppercase">Gallery</div>
+                </li>
+                <li>
                     <a href="{{ route('admin.galleries.show', $gallery->id) }}">
                         <x-admin.icon size="4">
                             <path stroke-linecap="round" stroke-linejoin="round"

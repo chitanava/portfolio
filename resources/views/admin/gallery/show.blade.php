@@ -18,6 +18,9 @@
 
       <ul tabindex="0" class="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-box w-52">
         <li>
+          <div class="divider hover:bg-transparent cursor-auto uppercase">Gallery</div>
+        </li>
+        <li>
           <a href="{{ route('admin.galleries.edit', $gallery->id) }}">
               <x-admin.icon size="4">
                   <path stroke-linecap="round" stroke-linejoin="round"
