@@ -1,11 +1,11 @@
 <div class="text-sm breadcrumbs">
   <ul>
     @foreach ($items as $item)
-      @unless ($loop->last)
+      @if (isset($item['url']))
         <li><a href="{{ $item['url'] }}">{{ $item['title'] }}</a></li>
       @else
-        <li>{{ $item['title'] }}</li>
-      @endunless
+        <li><span class="text-zinc-400">{{ $item['title'] }}</span></li>
+      @endif
     @endforeach
   </ul>
 </div>
