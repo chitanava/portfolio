@@ -13,6 +13,7 @@
       display: none;
     }
   </style>
+  @stack('header-scripts')
   <title>@isset($title) {{ $title }} - @endisset Admin</title>
 </head>
 <body
