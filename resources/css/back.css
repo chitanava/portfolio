@@ -7,10 +7,6 @@ body{
   @apply font-poppins;
 }
 
-/* .draggable-source--is-dragging a{
-  background-color: red;
-} */
-/* .draggable-mirror {
-  background-color: blue;
-  position: sticky!important;
-} */
+.trix-button-group.trix-button-group--file-tools {
+  display:none;
+}
