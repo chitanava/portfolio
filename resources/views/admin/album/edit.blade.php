@@ -42,7 +42,7 @@
             <span class="label-text">Description</span>
           </label>
           <input id="x" type="hidden" name="description" value="{{ old('description', $album->description) }}">
-          <trix-editor input="x" class="textarea textarea-bordered h-60 rounded-none"></trix-editor>
+          <trix-editor input="x" class="textarea textarea-bordered white rounded-none min-h-[15rem]"></trix-editor>
           @error('description')
           <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
         @enderror
@@ -65,7 +65,7 @@
         <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Cover image</div>
         <div class="card-body space-y-4">
           <figure>
-            <img src="{{ $album->getFirstMediaUrl('default', 'thumb') }}" alt="Shoes" class="rounded-xl" />
+            <img src="{{ $album->getFirstMediaUrl('default', 'thumb') }}" class="max-w-xs rounded-xl" />
           </figure>
           <div class="form-control w-full">
             <input type="file" name="cover" class="file-input file-input-bordered file-input-ghost w-full" />
