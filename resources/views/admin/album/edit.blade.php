@@ -63,7 +63,7 @@
 
       <div class="card bg-base-100 shadow col-span-3 xl:col-span-1">
         <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Cover image</div>
-        <div class="card-body space-y-4">
+        <div class="p-8 space-y-6">
           <figure>
             <img src="{{ $album->getFirstMediaUrl('default', 'thumb') }}" class="max-w-xs rounded-xl" />
           </figure>

@@ -71,11 +71,6 @@
 
   @push('header-scripts')
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
-    {{-- <style>
-      .trix-button-group.trix-button-group--file-tools {
-        display:none;
-      }
-    </style> --}}
   @endpush
 
 </x-admin.layout.app>
