@@ -18,8 +18,10 @@ class Gallery extends Model
 
     protected static function booted(): void
     {
-        static::deleted(function (Gallery $gallery) {
-            $gallery->images()->delete();
+        static::deleting(function (Gallery $gallery) {
+            $gallery->albums()->each(function($album){
+                $album->delete();
+            });
         });
     }
 

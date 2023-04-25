@@ -27,13 +27,22 @@ class AlbumController extends Controller
     {        
         $validated = $request->validate([
             'title' => 'required',
+            'description' => 'nullable|string',
+            'cover' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'active' => 'required',
-            'description' => 'nullable|string'
         ]);
 
-        $gallery->albums()->create($validated);
+        $album = $gallery->albums()->create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'active' => $request->active,
+        ]);
 
-        return redirect()->route('admin.galleries.show', $gallery->id)->with('status', 'Album created.');
+        $album->addMediaFromRequest('cover')->toMediaCollection();
+
+        return redirect()
+            ->route('admin.galleries.show', $gallery->id)
+            ->with('status', 'Album created.');
     }
 
 
@@ -53,13 +62,25 @@ class AlbumController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
+            'description' => 'nullable|string',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'active' => 'required',
-            'description' => 'nullable|string'
         ]);
 
-        $album->update($validated);
+        $album->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'active' => $request->active,
+        ]);
 
-        return redirect()->route('admin.galleries.show', $gallery->id)->with('status', 'Album updated.');
+        if($request->hasFile('cover')){
+            $album->getMedia()[0]->delete();
+            $album->addMediaFromRequest('cover')->toMediaCollection();
+        }
+
+        return redirect()
+            ->route('admin.galleries.show', $gallery->id)
+            ->with('status', 'Album updated.');
     }
 
 

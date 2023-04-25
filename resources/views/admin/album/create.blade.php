@@ -12,9 +12,10 @@
   
   <x-admin.page-header title="Create Album"/>
 
-  <form action="{{ route('admin.galleries.albums.store', $gallery->id) }}" method="POST">
+  <form action="{{ route('admin.galleries.albums.store', $gallery->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <div class="card bg-base-100 shadow">
+    <div class="grid grid-cols-3 gap-8 items-start">
+      <div class="card bg-base-100 shadow col-span-3 xl:col-span-2">
       <div class="card-body space-y-4">
         <div class="form-control w-full">
           <label for="title" class="label">
@@ -48,9 +49,22 @@
           @enderror
         </div>
       </div>
-    </div>  
+      </div>  
 
-    <div class="mt-4">
+      <div class="card bg-base-100 shadow col-span-3 xl:col-span-1">
+        <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Cover image</div>
+        <div class="card-body space-y-4">
+          <div class="form-control w-full">
+            <input type="file" name="cover" class="file-input file-input-bordered file-input-ghost w-full" />
+            @error('cover')
+              <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+            @enderror
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 xl:mt-4">
       <button type="submit" class="btn btn-accent">Create</button>
     </div>
   </form>  
