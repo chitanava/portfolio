@@ -29,15 +29,23 @@ class AlbumImageList extends Component
 
     public function delete($id, $class)
     {
-        $action = Str::endsWith($class, 'Album') ?
-            route('admin.galleries.albums.destroy', [$this->gallery->id, $id]) : 
-            route('admin.galleries.albums.images.destroy', [$this->gallery->id, $id]);
+        if(Str::endsWith($class, 'Album')) {
+            $action = route('admin.galleries.albums.destroy', [$this->gallery->id, $id]);
 
-        $this->emit('delete', [
-            'action' => $action,
-            'title' => 'Are you sure you want to delete the Album?',
-            'body' => 'This action will permanently remove all data, including images, associated with it.',
-        ]);
+            $this->emit('delete', [
+                'action' => $action,
+                'title' => 'Are you sure you want to delete the Album?',
+                'body' => 'This action will permanently remove all data, including images, associated with it.',
+            ]);
+        } else {
+            $action = route('admin.galleries.images.destroy', [$this->gallery->id, $id]);
+
+            $this->emit('delete', [
+                'action' => $action,
+                'title' => 'Are you sure you want to delete the Image?',
+                'body' => 'This action will permanently remove image.',
+            ]);
+        }
     }
 
     public function active($id, $class)

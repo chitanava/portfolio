@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AlbumController;
+use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\GalleryController;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
@@ -60,5 +61,11 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/galleries/{gallery}/albums/{album}/edit', [AlbumController::class, 'edit'])->name('galleries.albums.edit');
         Route::put('/galleries/{gallery}/albums/{album}', [AlbumController::class, 'update'])->name('galleries.albums.update');
         Route::delete('/galleries/{gallery}/albums/{album}', [AlbumController::class, 'destroy'])->name('galleries.albums.destroy');
+
+        Route::get('/galleries/{gallery}/images/create', [ImageController::class, 'create'])->name('galleries.images.create');
+        Route::post('/galleries/{gallery}/images', [ImageController::class, 'store'])->name('galleries.images.store');
+        Route::get('/galleries/{gallery}/images/{image}/edit', [ImageController::class, 'edit'])->name('galleries.images.edit');
+        Route::put('/galleries/{gallery}/images/{image}', [ImageController::class, 'update'])->name('galleries.images.update');
+        Route::delete('/galleries/{gallery}/images/{image}', [ImageController::class, 'destroy'])->name('galleries.images.destroy');
     });
 });

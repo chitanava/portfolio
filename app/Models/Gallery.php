@@ -22,6 +22,10 @@ class Gallery extends Model
             $gallery->albums()->each(function($album){
                 $album->delete();
             });
+
+            $gallery->images()->each(function($image){
+                $image->delete();
+            });
         });
     }
 
