@@ -53,7 +53,7 @@ class GalleryController extends Controller
         $gallery->update($validated);
 
         return redirect()
-                ->route('admin.galleries')
+                ->route('admin.galleries.edit', $gallery->id)
                 ->with('status', 'Gallery updated.');
     }
 

@@ -73,7 +73,7 @@ class AlbumController extends Controller
         }
 
         return redirect()
-                ->route('admin.galleries.show', $gallery->id)
+                ->route('admin.galleries.albums.edit', [$gallery->id, $album->id])
                 ->with('status', 'Album updated.');
     }
 

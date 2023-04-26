@@ -67,7 +67,7 @@ class GalleryImageController extends Controller
         }
 
         return redirect()
-                ->route('admin.galleries.show', $gallery->id)
+                ->route('admin.galleries.images.edit', [$gallery->id, $image->id])
                 ->with('status', 'Image updated.');
     }
 
