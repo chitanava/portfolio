@@ -37,6 +37,15 @@ class Album extends Model implements HasMedia
         );
     }
 
+    protected static function booted(): void
+    {
+        static::deleting(function (Album $album) {
+            $album->images()->each(function($image){
+                $image->delete();
+            });
+        });
+    }
+
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');

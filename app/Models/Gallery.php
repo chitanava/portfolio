@@ -21,6 +21,10 @@ class Gallery extends Model
         static::deleting(function (Gallery $gallery) {
             $gallery->albums()->each(function($album){
                 $album->delete();
+
+                $album->images()->each(function($image){
+                    $image->delete();
+                });
             });
 
             $gallery->images()->each(function($image){
