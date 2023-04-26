@@ -12,19 +12,13 @@ use Illuminate\Http\RedirectResponse;
 class AlbumImageController extends Controller
 {
 
-    public function index()
-    {
-        //
-    }
-
-
     public function create(Gallery $gallery, Album $album)
     {
         return view('admin.album-image.create', ['gallery' => $gallery, 'album' => $album]);
     }
 
 
-    public function store(Gallery $gallery, Album $album, Request $request): RedirectResponse
+    public function store(Request $request, Gallery $gallery, Album $album): RedirectResponse
     {        
         $validated = $request->validate([
             'title' => 'required',
@@ -42,14 +36,8 @@ class AlbumImageController extends Controller
         $image->addMediaFromRequest('image')->toMediaCollection();
 
         return redirect()
-            ->route('admin.galleries.albums.show', [$gallery->id, $album->id])
-            ->with('status', 'Image created.');
-    }
-
-
-    public function show(Gallery $gallery, Image $image)
-    {
-        //
+                ->route('admin.galleries.albums.show', [$gallery->id, $album->id])
+                ->with('status', 'Image created.');
     }
 
 
@@ -80,8 +68,8 @@ class AlbumImageController extends Controller
         }
 
         return redirect()
-            ->route('admin.galleries.albums.show', [$gallery->id, $album->id])
-            ->with('status', 'Image updated.');
+                ->route('admin.galleries.albums.show', [$gallery->id, $album->id])
+                ->with('status', 'Image updated.');
     }
 
 
@@ -89,6 +77,8 @@ class AlbumImageController extends Controller
     {
         $image->delete();
 
-        return redirect()->route('admin.galleries.albums.show', [$gallery->id, $album->id])->with('status', 'Image deleted.');
+        return redirect()
+                ->route('admin.galleries.albums.show', [$gallery->id, $album->id])
+                ->with('status', 'Image deleted.');
     }
 }

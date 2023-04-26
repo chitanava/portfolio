@@ -67,7 +67,7 @@
     </div>
   </x-admin.page-header>
 
-  @livewire('admin.album-image-list', ['gallery' => $gallery])
+  @livewire('admin.gallery-items-list', ['gallery' => $gallery])
 
   <x-slot:modal>
     <x-admin.modal-delete/>

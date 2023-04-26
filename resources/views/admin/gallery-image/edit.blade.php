@@ -44,8 +44,8 @@
           <input id="x" type="hidden" name="caption" value="{{ old('caption', $image->caption) }}">
           <trix-editor input="x" class="textarea textarea-bordered white rounded-none min-h-[15rem]"></trix-editor>
           @error('caption')
-          <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
-        @enderror
+            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+          @enderror
         </div>
 
         <div class="form-control items-start">

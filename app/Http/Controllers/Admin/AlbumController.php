@@ -11,19 +11,13 @@ use Illuminate\Http\RedirectResponse;
 class AlbumController extends Controller
 {
 
-    public function index()
-    {
-        //
-    }
-
-
     public function create(Gallery $gallery)
     {
         return view('admin.album.create', ['gallery' => $gallery]);
     }
 
 
-    public function store(Gallery $gallery, Request $request): RedirectResponse
+    public function store(Request $request, Gallery $gallery): RedirectResponse
     {        
         $validated = $request->validate([
             'title' => 'required',
@@ -41,8 +35,8 @@ class AlbumController extends Controller
         $album->addMediaFromRequest('cover')->toMediaCollection();
 
         return redirect()
-            ->route('admin.galleries.show', $gallery->id)
-            ->with('status', 'Album created.');
+                ->route('admin.galleries.show', $gallery->id)
+                ->with('status', 'Album created.');
     }
 
 
@@ -79,8 +73,8 @@ class AlbumController extends Controller
         }
 
         return redirect()
-            ->route('admin.galleries.show', $gallery->id)
-            ->with('status', 'Album updated.');
+                ->route('admin.galleries.show', $gallery->id)
+                ->with('status', 'Album updated.');
     }
 
 
@@ -88,6 +82,8 @@ class AlbumController extends Controller
     {
         $album->delete();
 
-        return redirect()->route('admin.galleries.show', $gallery->id)->with('status', 'Album deleted.');
+        return redirect()
+                ->route('admin.galleries.show', $gallery->id)
+                ->with('status', 'Album deleted.');
     }
 }

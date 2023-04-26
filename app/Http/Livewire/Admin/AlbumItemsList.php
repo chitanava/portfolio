@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Image;
 use Livewire\Component;
 
-class ImageList extends Component
+class AlbumItemsList extends Component
 {
     public $gallery;
     public $album;
@@ -45,6 +45,6 @@ class ImageList extends Component
 
     public function render()
     {
-        return view('livewire.admin.image-list');
+        return view('livewire.admin.album-items-list');
     }
 }

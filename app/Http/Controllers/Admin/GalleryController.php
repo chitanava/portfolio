@@ -28,7 +28,9 @@ class GalleryController extends Controller
 
         Gallery::create($validated);
 
-        return redirect()->route('admin.galleries')->with('status', 'Gallery created.');
+        return redirect()
+                ->route('admin.galleries')
+                ->with('status', 'Gallery created.');
     }
 
     public function show(Gallery $gallery)
@@ -50,13 +52,17 @@ class GalleryController extends Controller
 
         $gallery->update($validated);
 
-        return redirect()->route('admin.galleries')->with('status', 'Gallery updated.');
+        return redirect()
+                ->route('admin.galleries')
+                ->with('status', 'Gallery updated.');
     }
 
     public function destroy(Gallery $gallery): RedirectResponse
     {
         $gallery->delete();
 
-        return redirect()->route('admin.galleries')->with('status', 'Gallery deleted.');
+        return redirect()
+                ->route('admin.galleries')
+                ->with('status', 'Gallery deleted.');
     }
 }

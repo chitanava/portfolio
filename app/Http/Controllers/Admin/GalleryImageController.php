@@ -8,22 +8,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 
-class ImageController extends Controller
+class GalleryImageController extends Controller
 {
-
-    public function index()
-    {
-        //
-    }
-
 
     public function create(Gallery $gallery)
     {
-        return view('admin.image.create', ['gallery' => $gallery]);
+        return view('admin.gallery-image.create', ['gallery' => $gallery]);
     }
 
 
-    public function store(Gallery $gallery, Request $request): RedirectResponse
+    public function store(Request $request, Gallery $gallery): RedirectResponse
     {        
         $validated = $request->validate([
             'title' => 'required',
@@ -46,15 +40,9 @@ class ImageController extends Controller
     }
 
 
-    public function show(Gallery $gallery, Image $image)
-    {
-        //
-    }
-
-
     public function edit(Gallery $gallery, Image $image)
     {
-        return view('admin.image.edit', ['gallery' => $gallery, 'image' => $image]);
+        return view('admin.gallery-image.edit', ['gallery' => $gallery, 'image' => $image]);
     }
 
 
@@ -79,8 +67,8 @@ class ImageController extends Controller
         }
 
         return redirect()
-            ->route('admin.galleries.show', $gallery->id)
-            ->with('status', 'Image updated.');
+                ->route('admin.galleries.show', $gallery->id)
+                ->with('status', 'Image updated.');
     }
 
 
@@ -88,6 +76,8 @@ class ImageController extends Controller
     {
         $image->delete();
 
-        return redirect()->route('admin.galleries.show', $gallery->id)->with('status', 'Image deleted.');
+        return redirect()
+                ->route('admin.galleries.show', $gallery->id)
+                ->with('status', 'Image deleted.');
     }
 }

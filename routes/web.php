@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\GalleryController;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Http\Controllers\Admin\AlbumImageController;
+use App\Http\Controllers\Admin\GalleryImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,22 +19,6 @@ use App\Http\Controllers\Admin\AlbumImageController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/demo', function(){
-    $gallery = App\Models\Gallery::find(1);
-    $albums = $gallery->albums()->with(['images' => function(Builder $query){
-        $query->orderBy('ord', 'asc');
-    }])->orderBy('ord', 'asc')->get();
-    $images = $gallery->images()->orderBy('ord', 'asc')->get();
-
-    $merged = $albums->concat($images);
-
-    dd($merged->sortBy('ord')->toArray());
-});
-
-Route::get('/demo/sort', function(){
-    return view('sort');
-});
 
 Route::get('/admin', function(){
     return redirect()->route('admin.galleries');
@@ -63,11 +48,11 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::put('/galleries/{gallery}/albums/{album}', [AlbumController::class, 'update'])->name('galleries.albums.update');
         Route::delete('/galleries/{gallery}/albums/{album}', [AlbumController::class, 'destroy'])->name('galleries.albums.destroy');
 
-        Route::get('/galleries/{gallery}/images/create', [ImageController::class, 'create'])->name('galleries.images.create');
-        Route::post('/galleries/{gallery}/images', [ImageController::class, 'store'])->name('galleries.images.store');
-        Route::get('/galleries/{gallery}/images/{image}/edit', [ImageController::class, 'edit'])->name('galleries.images.edit');
-        Route::put('/galleries/{gallery}/images/{image}', [ImageController::class, 'update'])->name('galleries.images.update');
-        Route::delete('/galleries/{gallery}/images/{image}', [ImageController::class, 'destroy'])->name('galleries.images.destroy');
+        Route::get('/galleries/{gallery}/images/create', [GalleryImageController::class, 'create'])->name('galleries.images.create');
+        Route::post('/galleries/{gallery}/images', [GalleryImageController::class, 'store'])->name('galleries.images.store');
+        Route::get('/galleries/{gallery}/images/{image}/edit', [GalleryImageController::class, 'edit'])->name('galleries.images.edit');
+        Route::put('/galleries/{gallery}/images/{image}', [GalleryImageController::class, 'update'])->name('galleries.images.update');
+        Route::delete('/galleries/{gallery}/images/{image}', [GalleryImageController::class, 'destroy'])->name('galleries.images.destroy');
         
         Route::get('/galleries/{gallery}/albums/{album}/images/create', [AlbumImageController::class, 'create'])->name('galleries.albums.images.create');
         Route::post('/galleries/{gallery}/albums/{album}/images', [AlbumImageController::class, 'store'])->name('galleries.albums.images.store');

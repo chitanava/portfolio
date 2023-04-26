@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
-class AlbumImageList extends Component
+class GalleryItemsList extends Component
 {
     public $gallery;
     public $data = [];
@@ -77,6 +77,6 @@ class AlbumImageList extends Component
 
     public function render()
     {
-        return view('livewire.admin.album-image-list');
+        return view('livewire.admin.gallery-items-list');
     }
 }
