@@ -59,5 +59,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/galleries/{gallery}/albums/{album}/images/{image}/edit', [AlbumImageController::class, 'edit'])->name('galleries.albums.images.edit');
         Route::put('/galleries/{gallery}/albums/{album}/images/{image}', [AlbumImageController::class, 'update'])->name('galleries.albums.images.update');
         Route::delete('/galleries/{gallery}/albums/{album}/images/{image}', [AlbumImageController::class, 'destroy'])->name('galleries.albums.images.destroy');
+        
+        Route::fallback(function () {
+            return redirect()->route('admin.galleries');
+        });
     });
 });
