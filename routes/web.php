@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BiographyController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\ImageController;
@@ -32,6 +33,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::middleware('auth')->group(function(){
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
         Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
+
+        Route::get('/biography/{biography}/edit', [BiographyController::class, 'edit'])->name('biography.edit');
+        Route::put('/biography/{biography}', [BiographyController::class, 'update'])->name('biography.update');
         
         Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries');
         Route::get('/galleries/create', [GalleryController::class, 'create'])->name('galleries.create');

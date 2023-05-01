@@ -18,5 +18,9 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'email' => 'test@example.com',
         ]);
+
+        \App\Models\Biography::create([
+            'body' => fake()->paragraph(),
+        ]);
     }
 }
