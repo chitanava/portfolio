@@ -42,7 +42,7 @@
             <span class="label-text">Description</span>
           </label>
           <input id="x" type="hidden" name="description" value="{{ old('description', $album->description) }}">
-          <trix-editor input="x" class="textarea textarea-bordered white rounded-none min-h-[15rem]"></trix-editor>
+          <trix-editor input="x" class="trix-content textarea textarea-bordered white rounded-none min-h-[15rem]"></trix-editor>
           @error('description')
           <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
         @enderror

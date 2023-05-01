@@ -17,7 +17,7 @@
       <div class="card-body space-y-4">
         <div class="form-control w-full">
           <input id="x" type="hidden" name="body" value="{{ old('body', $biography->body) }}">
-          <trix-editor input="x" class="textarea textarea-bordered white rounded-none min-h-[15rem]"></trix-editor>
+          <trix-editor input="x" class="trix-content textarea textarea-bordered white rounded-none min-h-[15rem]"></trix-editor>
           @error('body')
           <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
         @enderror

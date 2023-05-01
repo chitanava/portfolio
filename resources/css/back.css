@@ -10,3 +10,19 @@ body{
 .trix-button-group.trix-button-group--file-tools {
   display:none;
 }
+
+.trix-content a{
+  @apply text-primary underline
+}
+
+.trix-content ul{
+  @apply list-disc
+}
+
+.trix-content ol{
+  @apply list-decimal
+}
+
+.trix-content h1{
+  @apply font-bold
+}
