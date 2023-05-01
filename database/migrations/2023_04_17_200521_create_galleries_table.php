@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
+            $table->string('slug')->nullable();
             $table->boolean('active')->default(1);
             $table->unsignedInteger('ord')->default(999);
         });
