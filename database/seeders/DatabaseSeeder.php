@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             'body' => fake()->paragraph(),
         ]);
 
-        \App\Models\Setting::create();
+        \App\Models\Setting::create([
+            'custom_css' => '/* Custom CSS */'
+        ]);
     }
 }
