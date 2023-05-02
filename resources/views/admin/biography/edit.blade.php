@@ -3,7 +3,7 @@
   
   <x-admin.page-header title="Biography" />
 
-  <form action="{{ route('admin.biography.update', 1) }}" method="POST">
+  <form action="{{ route('admin.biography.update') }}" method="POST">
     @csrf
     @method('PUT')
     <div class="card bg-base-100 shadow">
