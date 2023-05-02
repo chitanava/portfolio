@@ -44,8 +44,8 @@
           <input id="x" type="hidden" name="description" value="{{ old('description', $album->description) }}">
           <trix-editor input="x" class="trix-content textarea textarea-bordered white rounded-none min-h-[15rem]"></trix-editor>
           @error('description')
-          <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
-        @enderror
+            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+          @enderror
         </div>
 
         <div class="form-control items-start">
@@ -82,12 +82,25 @@
     </div>
   </form>  
 
-  @push('header-scripts')
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
-  @endpush
-
   <x-slot:modal>
     <x-admin.modal-delete/>
   </x-slot:modal>
+
+  @push('header-scripts')
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <style>
+      .trix-button-group.trix-button-group--file-tools {
+        display:none;
+      }
+    </style>
+  @endpush
+
+  @push('footer-scripts')
+    <script>
+      document.addEventListener("trix-file-accept", (e) => {
+        e.preventDefault();
+      })
+    </script>
+  @endpush
 
 </x-admin.layout.app>

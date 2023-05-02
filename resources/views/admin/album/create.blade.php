@@ -32,10 +32,10 @@
             <span class="label-text">Description</span>
           </label>
           <input id="x" type="hidden" name="description" value="{{ old('description') }}">
-          <trix-editor input="x" class="trix-content textarea textarea-bordered h-60 rounded-none"></trix-editor>
+          <trix-editor input="x" class="trix-content textarea textarea-bordered min-h-[15rem] rounded-none"></trix-editor>
           @error('description')
-          <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
-        @enderror
+            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+          @enderror
         </div>
 
         <div class="form-control items-start">
@@ -71,6 +71,19 @@
 
   @push('header-scripts')
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <style>
+      .trix-button-group.trix-button-group--file-tools {
+        display:none;
+      }
+    </style>
+  @endpush
+
+  @push('footer-scripts')
+    <script>
+      document.addEventListener("trix-file-accept", (e) => {
+        e.preventDefault();
+      })
+    </script>
   @endpush
 
 </x-admin.layout.app>

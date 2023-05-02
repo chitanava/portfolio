@@ -7,10 +7,6 @@ body{
   @apply font-poppins;
 }
 
-.trix-button-group.trix-button-group--file-tools {
-  display:none;
-}
-
 .trix-content a{
   @apply text-primary underline
 }

@@ -34,4 +34,42 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
   @endpush
 
+  @push('footer-scripts')
+    <script>
+      (function(){
+        addEventListener("trix-attachment-add", function(event) {
+          const data = new FormData()
+          data.append("Content-Type", event.attachment.file.type)
+          data.append("file", event.attachment.file)
+
+          axios.post("{{ route('admin.biography.attachment.add') }}", data, {
+            onUploadProgress: (progressEvent) => {
+              let progress = progressEvent.loaded / progressEvent.total * 100
+              event.attachment.setUploadProgress(progress)
+            }
+          }).then((res) => {
+            if(res.data.success === false){
+              event.attachment.remove()
+              alert(res.data.message)
+            } else {
+              event.attachment.setAttributes({
+                url: res.data.url,
+                href: `${res.data.url}?content-disposition=attachment`,
+                file: res.data.file,
+              })
+            }
+          })
+        })
+
+        addEventListener("trix-attachment-remove", function(event) {
+            axios.post("{{ route('admin.biography.attachment.remove') }}", {
+              file: event.attachment.attachment.attributes.values.file,
+            }).then((res) => {
+              console.log(res.data)
+            })
+        })
+      })();
+    </script>
+  @endpush
+
 </x-admin.layout.app>

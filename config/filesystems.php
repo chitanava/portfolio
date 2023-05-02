@@ -42,6 +42,12 @@ return [
             'url' => env('APP_URL').'/storage/media',
         ],
 
+        'trix' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/trix'),
+            'url' => '/storage/trix',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

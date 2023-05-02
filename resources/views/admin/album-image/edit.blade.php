@@ -83,11 +83,24 @@
     </div>
   </form> 
 
-  @push('header-scripts')
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
-  @endpush
-
   <x-slot:modal>
     <x-admin.modal-delete/>
   </x-slot:modal>
+
+  @push('header-scripts')
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <style>
+      .trix-button-group.trix-button-group--file-tools {
+        display:none;
+      }
+    </style>
+  @endpush
+
+  @push('footer-scripts')
+    <script>
+      document.addEventListener("trix-file-accept", (e) => {
+        e.preventDefault();
+      })
+    </script>
+  @endpush  
 </x-admin.layout.app>
