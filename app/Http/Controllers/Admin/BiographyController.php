@@ -11,22 +11,24 @@ use Illuminate\Support\Facades\Validator;
 
 class BiographyController extends Controller
 {
-    public function edit(Biography $biography)
+    public function edit()
     {
+        $biography = Biography::firstOrFail();
         return view('admin.biography.edit', ['biography' => $biography]);
     }
 
 
-    public function update(Request $request, Biography $biography): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'body' => 'required',
         ]);
 
+        $biography = Biography::firstOrFail();
         $biography->update($validated);
 
         return redirect()
-                ->route('admin.biography.edit', $biography->id)
+                ->route('admin.biography.edit')
                 ->with('status', 'Biography updated.');
     }
 

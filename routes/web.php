@@ -35,8 +35,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
         Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
 
-        Route::get('/biography/{biography}/edit', [BiographyController::class, 'edit'])->name('biography.edit');
-        Route::put('/biography/{biography}', [BiographyController::class, 'update'])->name('biography.update');
+        Route::get('/biography', [BiographyController::class, 'edit'])->name('biography.edit');
+        Route::put('/biography', [BiographyController::class, 'update'])->name('biography.update');
         Route::post('/biography/attachment-add', [BiographyController::class, 'attachmentAdd'])->name('biography.attachment.add');
         Route::post('/biography/attachment-remove', [BiographyController::class, 'attachmentRemove'])->name('biography.attachment.remove');
         

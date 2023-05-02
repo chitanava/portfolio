@@ -1,14 +1,7 @@
 <x-admin.layout.app>
-  <x-slot name="title">Edit Biography</x-slot>
-
-  <x-slot name="breadcrumbs">
-    <x-admin.breadcrumbs :items="[
-        ['title' => 'Biography', 'url' => route('admin.biography.edit', 1)],
-        ['title' => 'Edit']
-    ]"/>
-  </x-slot>
+  <x-slot name="title">Biography</x-slot>
   
-  <x-admin.page-header title="Edit Biography" />
+  <x-admin.page-header title="Biography" />
 
   <form action="{{ route('admin.biography.update', 1) }}" method="POST">
     @csrf
