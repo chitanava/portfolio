@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\BiographyController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\BiographyController;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Http\Controllers\Admin\AlbumImageController;
 use App\Http\Controllers\Admin\GalleryImageController;
@@ -39,6 +40,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::post('/biography/attachment-add', [BiographyController::class, 'attachmentAdd'])->name('biography.attachment.add');
         Route::post('/biography/attachment-remove', [BiographyController::class, 'attachmentRemove'])->name('biography.attachment.remove');
         
+        Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
+        Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
+
         Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries');
         Route::get('/galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
         Route::post('/galleries', [GalleryController::class, 'store'])->name('galleries.store');
