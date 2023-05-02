@@ -22,7 +22,7 @@ class AlbumController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'description' => 'nullable|string',
-            'cover' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'cover' => 'required|image|mimes:jpeg,png,jpg|max:'.config('app.upload_max_filesize'),
             'active' => 'required',
         ]);
 
@@ -57,7 +57,7 @@ class AlbumController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'description' => 'nullable|string',
-            'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg|max:'.config('app.upload_max_filesize'),
             'active' => 'required',
         ]);
 

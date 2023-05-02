@@ -212,4 +212,5 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    'upload_max_filesize' => env('UPLOAD_MAX_FILESIZE', 2048),
 ];
