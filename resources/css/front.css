@@ -198,3 +198,46 @@
 body{
   @apply font-poppins;
 }
+
+.art-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-auto-rows: 200px;
+  grid-gap: 2px;
+}
+
+.art-box img {
+  object-fit: cover;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  background: rgba(240, 240, 240, 0.9);
+}
+
+.art-box img:hover {
+  opacity: .96;
+}
+
+@media (min-width: 478px) {
+  .art-box img:nth-child(2n):not(:last-of-type) {
+    grid-row-end: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .art-box {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-auto-rows: calc(200px - 15vh);
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .art-box {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  }
+}
+
+.description + .caption .devider{
+  display: none;
+}

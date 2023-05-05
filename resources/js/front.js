@@ -1,3 +1,5 @@
 import './bootstrap';
+import Alpine from 'alpinejs'
 
-console.log('front');
+window.Alpine = Alpine
+Alpine.start()
