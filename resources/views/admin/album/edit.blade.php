@@ -5,7 +5,7 @@
     <x-admin.breadcrumbs :items="[
         ['title' => 'Galleries', 'url' => route('admin.galleries')],
         ['title' => $gallery->title, 'url' => route('admin.galleries.show', $gallery->id)],
-        ['title' => $album->title, 'url' => '#'],
+        ['title' => $album->title, 'url' => route('admin.galleries.albums.show', [$gallery->id, $album->id])],
         ['title' => 'Edit']
     ]"/>
   </x-slot>
