@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\GalleryImageController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/biography', [\App\Http\Controllers\BiographyController::class, 'index'])->name('biography');
 
 Route::get('/admin', function(){
     return redirect()->route('admin.galleries');

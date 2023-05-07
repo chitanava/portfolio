@@ -25,7 +25,8 @@
     <div class="drawer-content flex flex-col relative">
       <!-- Page content here -->
       {{-- <label for="my-drawer" class="btn btn-primary drawer-button lg:hidden">Open drawer</label> --}}
-    {{ $slot }}
+    
+      {{ $slot }}
     </div>
     <div class="drawer-side ">
       <label for="my-drawer" class="drawer-overlay"></label>
@@ -35,16 +36,19 @@
           <nav>
             <ul>
               <li>
-                <a href="#" class="text-xl text-gray-500 hover:text-gray-900 block py-1">Biography</a>
+                <a href="{{ route('home') }}" class="text-xl font-bold hover:text-gray-900 block py-1 {{ active_link('home') ? 'text-gray-900' : 'text-gray-500' }}">Home</a>
               </li>
               <li>
-                <a href="#" class="text-xl text-gray-500 hover:text-gray-900 block py-1">Exhibitions</a>
+                <a href="{{ route('biography') }}" class="text-xl font-bold hover:text-gray-900 block py-1 {{ active_link('biography') ? 'text-gray-900' : 'text-gray-500' }}">Biography</a>
               </li>
               <li>
-                <a href="#" class="text-xl text-gray-500 hover:text-gray-900 block py-1">Projects</a>
+                <a href="#" class="text-xl font-bold text-gray-500 hover:text-gray-900 block py-1">Exhibitions</a>
               </li>
               <li>
-                <a href="#" class="text-xl text-gray-500 hover:text-gray-900 block py-1">Other</a>
+                <a href="#" class="text-xl font-bold text-gray-500 hover:text-gray-900 block py-1">Projects</a>
+              </li>
+              <li>
+                <a href="#" class="text-xl font-bold text-gray-500 hover:text-gray-900 block py-1">Other</a>
               </li>
             </ul>
           </nav>
