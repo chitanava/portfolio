@@ -10,6 +10,11 @@
     rel="stylesheet">
   @vite(['resources/css/front.css', 'resources/js/front.js'])
   @livewireStyles
+  <style>
+    [x-cloak] {
+      display: none;
+    }
+  </style>
   @stack('header-scripts')
   <title>@isset($title) {{ $title }} - @endisset {{ config('app.name') }}</title>
 </head>
@@ -43,10 +48,10 @@
               </li>
             </ul>
           </nav>
-          <div class="description flex flex-col gap-10">
+          {{-- <div class="description flex flex-col gap-10">
             <div class="h-px bg-gray-300"></div>
             <div>Lorem ipsum dolor sit amet consectetur.</div>
-          </div>
+          </div> --}}
           <div class="caption"></div>
         </div>
       </aside>
