@@ -206,17 +206,17 @@ body{
   grid-gap: 4px;
 }
 
-.art-box img.art-box_image {
+/* .art-box img.art-box_image {
   object-fit: cover;
   cursor: pointer;
   width: 100%;
   height: 100%;
   background: rgba(240, 240, 240, 0.9);
-}
+} */
 
-.art-box img.art-box_image:hover {
+/* .art-box img.art-box_image:hover {
   opacity: .96;
-}
+} */
 
 @media (min-width: 640px) {
   .art-box img.art-box_image:nth-child(2n):not(:last-of-type) {

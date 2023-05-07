@@ -38,8 +38,7 @@ x-data="{
 
   open(event){
     const id = parseInt(event.target.dataset.id)
-
-    this.drawerContent.scrollTo(0, 0)
+    {{-- this.drawerContent.scrollTo(0, 0) --}}
     this.drawerContent.classList.add('!h-full', '!overflow-hidden')
     this.show = true
     this.loading = true
@@ -56,22 +55,33 @@ x-data="{
 
   close(){
     this.show = false
+    this.current = null
     this.drawerContent.classList.remove('!h-full', '!overflow-hidden')
   }
 }">
-<div class="py-10 pl-10 pr-10 lg:pl-0">
-  <div class="art-box">
-    @foreach ($items as $item)
+
+<div class="art-box">
+  @foreach ($items as $item)
+    @if (class_basename($item['class']) === 'Album')
+    <a href="{{ route('gallery.album', [$gallery->slug, $item->slug]) }}" class="bg-slate-100 relative group">
+      <img 
+        src="{{ $item->getFirstMediaUrl('default', 'thumb') }}"
+        class="object-cover cursor-pointer w-full h-full bg-gray-100 group-hover:opacity-95">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <h2 class="max-w-fit backdrop-blur-md bg-white/90 text-gray-700 font-bold text-lg px-4 py-2 text-center group-hover:text-gray-900">{{ $item->title }}</h2>
+        </div>
+    </a>
+    @else
       <img 
         src="{{ $item->getFirstMediaUrl('default', 'thumb') }}"
         data-path="{{ $item->getFirstMediaUrl() }}"
         data-caption="{{ $item->caption }}" 
-        class="art-box_image">
-    @endforeach
-  </div>
+        class="art-box_image object-cover cursor-pointer w-full h-full bg-gray-100 hover:opacity-95">
+    @endif
+  @endforeach
 </div>
 
-<div x-show="show" id="art-screen" class="absolute top-0 left-0 w-full h-full bg-white" x-cloak>
+<div x-show="show" id="art-screen" class="fixed top-0 right-0 bottom-0 left-0 lg:left-80 bg-white" x-cloak>
   <div class="art-image h-full flex justify-center items-center pl-10 pr-10 lg:pl-0 py-20 relative">
     <img class="max-w-full max-h-full m-auto" :src="current?.path" alt="">
     <div x-show="loading" class="w-full h-full bg-white absolute top-0 left-0 flex justify-center items-center" x-cloak>
