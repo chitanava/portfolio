@@ -67,8 +67,8 @@ x-data="{
       <img 
         src="{{ $item->getFirstMediaUrl('default', 'thumb') }}"
         class="object-cover cursor-pointer w-full h-full bg-gray-100 group-hover:opacity-95">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <h2 class="max-w-fit backdrop-blur-md bg-white/90 text-gray-700 font-bold text-lg px-4 py-2 text-center group-hover:text-gray-900">{{ $item->title }}</h2>
+        <div class="absolute bottom-0 left-0">
+          <h2 class="max-w-fit backdrop-blur-md bg-white/10 text-gray-200 font-bold text-lg px-4 py-2 text-center group-hover:text-gray-50">{{ $item->title }}</h2>
         </div>
     </a>
     @else
