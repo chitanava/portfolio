@@ -53,6 +53,8 @@ class GalleryItemsList extends Component
         $model = $class::findOrFail($id);
         $model->active = !$model->active;
         $model->save();
+
+        $this->data = $this->concatedData();
     }
 
     protected function concatedData()

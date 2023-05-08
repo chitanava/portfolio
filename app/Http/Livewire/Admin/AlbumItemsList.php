@@ -41,6 +41,8 @@ class AlbumItemsList extends Component
         $image = Image::findOrFail($id);
         $image->active = !$image->active;
         $image->save();
+
+        $this->images = $this->album->images()->orderBy('ord', 'asc')->get();
     }
 
     public function render()

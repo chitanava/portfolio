@@ -39,6 +39,8 @@ class GalleryList extends Component
         $gallery = Gallery::findOrFail($id);
         $gallery->active = !$gallery->active;
         $gallery->save();
+
+        $this->galleries = Gallery::orderBy('ord', 'asc')->get();
     }
 
     public function render()
