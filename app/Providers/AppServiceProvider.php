@@ -22,5 +22,8 @@ class AppServiceProvider extends ServiceProvider
     {
         View::share('galleries', 
             \App\Models\Gallery::where('active', 1)->orderBy('ord', 'asc')->get());
+
+        View::share('settings', 
+            \App\Models\Setting::firstOrFail());
     }
 }
