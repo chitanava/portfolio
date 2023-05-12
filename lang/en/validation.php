@@ -179,6 +179,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'seo_description' => 'description',
+        'seo_keywords' => 'keywords'
+    ],
 
 ];

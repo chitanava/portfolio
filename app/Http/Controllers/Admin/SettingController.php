@@ -19,6 +19,8 @@ class SettingController extends Controller
     {
         $validated = $request->validate([
             'custom_css' => 'nullable|string',
+            'seo_description' => 'nullable|string',
+            'seo_keywords' => 'nullable|string',
         ]);
 
         $settings = Setting::firstOrFail();
