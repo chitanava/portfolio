@@ -8,6 +8,22 @@
     @method('PUT')
     <div class="space-y-8">
       <div class="card bg-base-100 shadow col-span-3 xl:col-span-1">
+        <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">General</div>
+        <div class="card-body space-y-4">
+          <div class="form-control w-full">
+            <label for="app_name" class="label">
+              <span class="label-text">App Name</span>
+            </label>
+            <input type="text" name="app_name" value="{{ old('app_name', $settings->app_name) }}" id="app_name" class="input input-bordered" />
+            <p class="text-xs px-1 pt-2 base-content">Default: Zautashvili</p>
+            @error('app_name')
+              <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+            @enderror
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-base-100 shadow col-span-3 xl:col-span-1">
         <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">SEO</div>
         <div class="card-body space-y-4">
           <div class="form-control w-full">

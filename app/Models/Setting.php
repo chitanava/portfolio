@@ -9,5 +9,10 @@ class Setting extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['custom_css', 'seo_description', 'seo_keywords'];
+    protected $fillable = [
+        'custom_css', 
+        'seo_description', 
+        'seo_keywords',
+        'app_name',
+    ];
 }

@@ -21,6 +21,7 @@ class SettingController extends Controller
             'custom_css' => 'nullable|string',
             'seo_description' => 'nullable|string',
             'seo_keywords' => 'nullable|string',
+            'app_name' => 'nullable|string',
         ]);
 
         $settings = Setting::firstOrFail();

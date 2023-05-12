@@ -2,7 +2,7 @@
   <label for="my-drawer" class="drawer-overlay"></label>
   <aside class="w-80 bg-white">
     <div class="py-10 pl-10 pr-4 flex flex-col gap-10">
-      <h2 class="font-La-belle-aurore text-5xl">{{ config('app.name') }}</h2>
+      <h2 class="font-La-belle-aurore text-5xl aside_app-name">{{ $settings->app_name ?? config('app.name') }}</h2>
       <nav>
         <ul>
           <li>
