@@ -28,9 +28,13 @@ class Album extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('thumb')
+        $this->addMediaConversion('md')
                 ->width(600)
                 ->height(600);
+
+        $this->addMediaConversion('sm')
+                ->width(200)
+                ->height(200);
     }
 
     protected function class(): Attribute

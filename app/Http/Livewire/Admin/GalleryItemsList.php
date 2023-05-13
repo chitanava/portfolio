@@ -71,8 +71,8 @@ class GalleryItemsList extends Component
 
         $concated = $albums->concat($images)
                         ->sortBy('ord')
-                        ->values()
-                        ->toArray();
+                        ->values();
+                        // ->toArray();
         
         return collect($concated);
     }

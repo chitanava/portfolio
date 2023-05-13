@@ -9,8 +9,11 @@
             <x-admin.sortable.list-item class="grid-cols-[2rem_3fr_1fr_1fr]" wire:sortable.item="{{ $image->id }}"
                 wire:key="task-{{ $image->id }}">
 
-                <div class="justify-self-start">
-                    {{ $image->title }}
+                <div class="justify-self-start flex items-center gap-3">
+                    <div class="avatar">
+                        <div class="w-16 h-16 mask mask-squircle"><img src="{{ $image->getFirstMediaUrl('default', 'sm') }}" alt=""></div>
+                    </div>
+                    <span>{{ $image->title }}</span>
                 </div>
 
                 <x-slot:active>

@@ -12,7 +12,10 @@
                         wire:sortable.item="{{ $item['id'] }}:{{ $item['class'] }}"
                         wire:key="task-{{ $loop->iteration }}">
             
-                        <div class="justify-self-start">
+                        <div class="justify-self-start flex items-center gap-3">
+                            <div class="avatar">
+                                <div class="w-16 h-16 mask mask-squircle"><img src="{{ $item->getFirstMediaUrl('default', 'sm') }}" alt=""></div>
+                            </div>
                             <a class="hover:underline underline-offset-4" href="{{ route('admin.galleries.albums.show', [$gallery->id, $item['id']]) }}">{{ $item['title'] }}</a>
                         </div>
 
@@ -74,8 +77,11 @@
                         wire:sortable.item="{{ $item['id'] }}:{{ $item['class'] }}"
                         wire:key="task-{{ $loop->iteration }}">
 
-                        <div class="justify-self-start">
-                            {{ $item['title'] }}
+                        <div class="justify-self-start flex items-center gap-3">
+                            <div class="avatar">
+                                <div class="w-16 h-16 mask mask-squircle"><img src="{{ $item->getFirstMediaUrl('default', 'sm') }}" alt=""></div>
+                            </div>
+                            <span>{{ $item['title'] }}</span>
                         </div>
 
                         <div class="justify-self-start">

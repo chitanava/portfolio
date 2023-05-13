@@ -65,7 +65,7 @@
         <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Cover image</div>
         <div class="p-8 space-y-6">
           <figure>
-            <img src="{{ $album->getFirstMediaUrl('default', 'thumb') }}" class="max-w-xs rounded-xl" />
+            <img src="{{ $album->getFirstMediaUrl('default', 'md') }}" class="max-w-xs rounded-xl" />
           </figure>
           <div class="form-control w-full">
             <input type="file" name="cover" class="file-input file-input-bordered file-input-ghost w-full" />

@@ -66,7 +66,7 @@
         <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Image</div>
         <div class="p-8 space-y-6">
           <figure>
-            <img src="{{ $image->getFirstMediaUrl('default', 'thumb') }}" class="max-w-xs rounded-xl" />
+            <img src="{{ $image->getFirstMediaUrl('default', 'md') }}" class="max-w-xs rounded-xl" />
           </figure>
           <div class="form-control w-full">
             <input type="file" name="image" class="file-input file-input-bordered file-input-ghost w-full" />
