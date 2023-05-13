@@ -21,7 +21,7 @@
 
       {{ $slot }}
 
-      <div class="caption"></div>
+      <div class="caption hidden lg:block"></div>
     </div>
   </aside>
 </div>

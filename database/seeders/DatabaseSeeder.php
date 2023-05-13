@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Biography::create([
-            'body' => fake()->paragraph(),
+            'body' => fake()->paragraph(40),
         ]);
 
         \App\Models\Setting::create([

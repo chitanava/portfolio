@@ -81,9 +81,13 @@ x-data="{
   @endforeach
 </div>
 
-<div x-show="show" id="art-screen" class="fixed top-0 right-0 bottom-0 left-0 lg:left-80 bg-white" x-cloak>
-  <div class="art-image h-full flex justify-center items-center pl-10 pr-10 lg:pl-0 py-20 relative">
-    <img class="max-w-full max-h-full m-auto" :src="current?.path" alt="">
+
+
+<div x-show="show" id="art-screen" class="fixed top-0 right-0 bottom-0 left-0 lg:left-80 bg-white z-20" x-cloak>
+  <div class="art-image h-full flex flex-col gap-3 justify-center items-center pl-10 pr-10 lg:pl-0 py-24 relative">
+    <img class="max-w-full max-h-full" :src="current?.path" alt="">
+    <div x-show="current?.caption" x-html="current?.caption" class="text-sm lg:hidden"></div>
+
     <div x-show="loading" class="w-full h-full bg-white absolute top-0 left-0 flex justify-center items-center" x-cloak>
       <div aria-label="Loading..." role="status">
         <svg class="h-6 w-6 animate-spin" viewBox="3 3 18 18">

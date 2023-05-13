@@ -26,8 +26,8 @@
   <div class="drawer drawer-mobile">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col relative">
-      <main class="py-10 pl-10 pr-10 lg:pl-0 space-y-5 lg:space-y-0">
-        <x-site.header/>
+      <x-site.header/>
+      <main class="py-5 pl-10 pr-10 lg:pl-0 lg:py-10 space-y-5 lg:space-y-0">
         {{ $slot }}
       </main>
     </div>
