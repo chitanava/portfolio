@@ -20,6 +20,41 @@
               <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
             @enderror
           </div>
+          <div class="form-control w-full">
+              <div class="px-1 label-text">Home Bank</div>
+              <p class="text-xs px-1 pt-2 base-content mb-3">Please select the galleries and albums from which you want to display images on the home page.</p>
+              <div class="flex flex-col sm:gap-8 sm:flex-row">
+                @if ($galleries->isEmpty() && $albums->isEmpty())
+                  <div class="alert alert-warning shadow-lg">
+                    <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                      <span class="text-sm">Oops! It seems like there are no galleries or albums to display.</span>
+                    </div>
+                  </div>
+                @endif
+
+                @if ($galleries->isNotEmpty())                  
+                  <div>
+                    @foreach ($galleries as $gallery)                    
+                      <label class="label cursor-pointer">
+                        <span class="label-text mr-3">{{ $gallery->title }}</span> 
+                        <input type="checkbox" name="gallery_bank[]" value="{{ $gallery->id }}" @checked($gallery->home_bank) class="checkbox checkbox-accent checkbox-sm" />
+                      </label>
+                    @endforeach
+                  </div>
+                @endif
+                @if ($albums->isNotEmpty())    
+                  <div>
+                    @foreach ($albums as $album)                    
+                      <label class="label cursor-pointer">
+                        <span class="label-text mr-3">{{ $album->title }}</span> 
+                        <input type="checkbox" name="album_bank[]" value="{{ $album->id }}" @checked($album->home_bank) class="checkbox checkbox-accent checkbox-sm" />
+                      </label>
+                    @endforeach
+                  </div>
+                @endif
+              </div>
+          </div>
         </div>
       </div>
 
