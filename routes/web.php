@@ -82,7 +82,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::delete('/galleries/{gallery}/albums/{album}/images/{image}', [AlbumImageController::class, 'destroy'])->name('galleries.albums.images.destroy');
         
         Route::fallback(function () {
-            return redirect()->route('admin.galleries');
+            return abort(404);
         });
     });
 });

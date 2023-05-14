@@ -5,6 +5,9 @@ module.exports = {
     "./resources/**/*.js",
     "./resources/**/*.vue",
   ],
+  safelist: [
+    'text-6xl',
+  ],
   theme: {
     extend: {
       fontFamily: {
