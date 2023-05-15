@@ -31,7 +31,8 @@ class SettingController extends Controller
             'seo_keywords' => 'nullable|string',
             'app_name' => 'nullable|string',
             'gallery_bank' => 'nullable|array',
-            'album_bank' => 'nullable|array'
+            'album_bank' => 'nullable|array',
+            'default_fonts' => 'required',
         ]);
 
         $settings = Setting::firstOrFail();
@@ -40,6 +41,7 @@ class SettingController extends Controller
             'seo_description' => $request->seo_description,
             'seo_keywords' => $request->seo_keywords,
             'app_name' => $request->app_name,
+            'default_fonts' => $request->default_fonts,
         ]);
 
         Gallery::where('home_bank', 1)->update(['home_bank' => 0]);

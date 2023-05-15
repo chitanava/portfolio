@@ -8,9 +8,11 @@
   <meta name="description" content="{{ $settings->seo_description }}">
   <meta name="keywords" content="{{ $settings->seo_keywords }}">
   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-  <link
-    href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Poppins:ital,wght@0,400;0,600;1,400;1,600&display=swap"
-    rel="stylesheet">
+  @if ($settings->default_fonts)    
+    <link
+      href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Poppins:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+      rel="stylesheet">
+  @endif
   @vite(['resources/css/front.css', 'resources/js/front.js'])
   @livewireStyles
   <style>

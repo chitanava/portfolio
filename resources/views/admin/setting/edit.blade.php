@@ -20,6 +20,17 @@
               <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
             @enderror
           </div>
+
+          <div class="form-control items-start">
+            <label class="label cursor-pointer gap-4">
+              <span class="label-text">Default Fonts</span> 
+              <input type="hidden" name="default_fonts" value="0">
+              <input type="checkbox" name="default_fonts" value="1" class="toggle" @checked(old('active', $settings->default_fonts)) />
+            </label>
+            @error('default_fonts')
+              <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+            @enderror
+          </div>
         </div>
       </div>
 
