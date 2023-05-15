@@ -7,7 +7,7 @@
     @csrf
     @method('PUT')
     <div class="space-y-8">
-      <div class="card bg-base-100 shadow col-span-3 xl:col-span-1">
+      <div class="card bg-base-100 shadow">
         <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">General</div>
         <div class="card-body space-y-4">
           <div class="form-control w-full">
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="card bg-base-100 shadow col-span-3 xl:col-span-1">
+      <div class="card bg-base-100 shadow">
         <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Home Page</div>
         <div class="card-body space-y-4">
           <div class="form-control w-full">
@@ -81,7 +81,7 @@
         </div>
       </div>
 
-      <div class="card bg-base-100 shadow col-span-3 xl:col-span-1">
+      <div class="card bg-base-100 shadow">
         <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">SEO</div>
         <div class="card-body space-y-4">
           <div class="form-control w-full">
@@ -107,7 +107,7 @@
         </div>
       </div>
 
-      <div class="card bg-base-100 shadow col-span-3 xl:col-span-1">
+      <div class="card bg-base-100 shadow">
         <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Custom CSS</div>
         <div class="card-body space-y-4">
           <div class="form-control w-full">
