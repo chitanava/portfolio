@@ -15,7 +15,7 @@
 
 <body>
   <div class="h-full fixed w-full flex flex-col gap-2 justify-center items-center">
-    <div class="font-La-belle-aurore text-6xl admin_app-name">{{ $settings->app_name ?? config('app.name') }}</div>
+    <div class="font-La-belle-aurore text-6xl app-name not-found_app-name">{{ $settings->app_name ?? config('app.name') }}</div>
     <div class="text-2xl">404 Not Found</div>
   </div>
 </body>

@@ -1,6 +1,6 @@
 <x:admin.layout.auth>
   <div class="flex flex-col gap-8 h-screen justify-center items-center">
-    <div class="font-La-belle-aurore text-4xl admin_app-name">{{ $settings->app_name ?? config('app.name') }}</div>
+    <div class="font-La-belle-aurore text-4xl app-name login_app-name">{{ $settings->app_name ?? config('app.name') }}</div>
     <div class="card w-96 shadow-md">
       <form action="{{ route('admin.authenticate') }}" method="POST" autocomplete="off">
         <div class="card-body gap-4">
