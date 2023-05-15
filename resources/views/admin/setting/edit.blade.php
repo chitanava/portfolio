@@ -15,7 +15,7 @@
               <span class="label-text">App Name</span>
             </label>
             <input type="text" name="app_name" value="{{ old('app_name', $settings->app_name) }}" id="app_name" class="input input-bordered" />
-            <p class="text-xs px-1 pt-2 base-content">Default: Zautashvili</p>
+            <p class="text-xs px-1 pt-2 base-content">Default: {{ config('app.name') }}</p>
             @error('app_name')
               <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
             @enderror

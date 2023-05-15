@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+  @if ($settings->default_fonts)
   <link
-    href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Poppins:ital,wght@0,400;0,600;1,400;1,600&display=swap"
-    rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Poppins:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  @endif
   @vite(['resources/css/front.css', 'resources/js/front.js'])
+  @if ($settings->custom_css)<style>{!! $settings->custom_css !!}</style>@endif
   <title>Not Found</title>
 </head>
 
