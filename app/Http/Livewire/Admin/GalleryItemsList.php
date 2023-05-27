@@ -46,6 +46,8 @@ class GalleryItemsList extends Component
                 'body' => 'This action will permanently remove image.',
             ]);
         }
+
+        $this->data = $this->concatedData();
     }
 
     public function active($id, $class)
