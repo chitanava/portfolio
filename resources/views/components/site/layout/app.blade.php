@@ -22,7 +22,7 @@
   </style>
   @stack('header-scripts')
   @if ($settings->custom_css)<style>{!! $settings->custom_css !!}</style>@endif
-  <title>@isset($title) {{ $title }} - @endisset {{ config('app.name') }}</title>
+  <title>@isset($title) {{ $title }} - @endisset {{ $settings->app_name ?? config('app.name') }}</title>
 </head>
 
 <body>
