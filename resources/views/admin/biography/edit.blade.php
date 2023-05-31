@@ -47,7 +47,7 @@
             } else {
               event.attachment.setAttributes({
                 url: res.data.url,
-                href: `${res.data.url}?content-disposition=attachment`,
+                // href: `${res.data.url}?content-disposition=attachment`,
                 file: res.data.file,
               })
             }
