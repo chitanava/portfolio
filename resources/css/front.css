@@ -200,7 +200,7 @@ body{
 }
 
 .trix-content .attachment__caption{
-  @apply text-left text-xs text-gray-400
+  @apply text-left text-sm text-gray-400 mt-2
 }
 
 .trix-content strong{
