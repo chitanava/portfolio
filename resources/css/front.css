@@ -240,11 +240,16 @@ body{
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-auto-rows: 250px;
   grid-gap: 4px;
+  max-width: 1773px;
 }
 
 @media (min-width: 640px) {
   .art-box img.art-box_image:nth-child(2n):not(:last-of-type) {
     grid-row-end: span 2;
+  }
+
+  .art-box img.art-box_image:nth-last-child(-n+6):not(:last-of-type) {
+    grid-row-end: span 1;
   }
 }
 
