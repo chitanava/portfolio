@@ -15,5 +15,6 @@ class Setting extends Model
         'seo_keywords',
         'app_name',
         'default_fonts',
+        'home_images',
     ];
 }

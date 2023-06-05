@@ -78,6 +78,17 @@
               <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
             @enderror
           </div>
+          <div class="form-control w-full">
+            <label for="home_images" class="label">
+              <span class="label-text">Number of Images</span>
+            </label>
+            <input type="text" name="home_images" value="{{ old('home_images', $settings->home_images) }}" id="home_images" class="input input-bordered" />
+            <p class="text-xs px-1 pt-2 base-content">Please enter the number of images you would like to appear on the home page.</p>
+            <p class="text-xs px-1 pt-2 base-content">Default: {{ config('settings.home_images') }}</p>
+            @error('home_images')
+              <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+            @enderror
+          </div>
         </div>
       </div>
 
