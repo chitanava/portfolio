@@ -24,7 +24,7 @@ class Video extends Model implements HasMedia
         'active',
     ];
 
-    protected $appends = ['class'];
+    protected $appends = ['class', 'video_id'];
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -41,6 +41,13 @@ class Video extends Model implements HasMedia
     {
         return new Attribute(
             get: fn () => Video::class,
+        );
+    }
+
+    protected function videoId(): Attribute
+    {
+        return new Attribute(
+            get: fn () => videoId($this->url),
         );
     }
 
