@@ -11,7 +11,9 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BiographyController;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Http\Controllers\Admin\AlbumImageController;
+use App\Http\Controllers\Admin\AlbumVideoController;
 use App\Http\Controllers\Admin\GalleryImageController;
+use App\Http\Controllers\Admin\GalleryVideoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,15 +73,27 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
         Route::get('/galleries/{gallery}/images/create', [GalleryImageController::class, 'create'])->name('galleries.images.create');
         Route::post('/galleries/{gallery}/images', [GalleryImageController::class, 'store'])->name('galleries.images.store');
-        Route::get('/galleries/{gallery}/images/{image}/edit', [GalleryImageController::class, 'edit'])->name('galleries.images.edit');
+        Route::get('/galleries/{gallery}/images/{video}/edit', [GalleryImageController::class, 'edit'])->name('galleries.images.edit');
         Route::put('/galleries/{gallery}/images/{image}', [GalleryImageController::class, 'update'])->name('galleries.images.update');
         Route::delete('/galleries/{gallery}/images/{image}', [GalleryImageController::class, 'destroy'])->name('galleries.images.destroy');
+        
+        Route::get('/galleries/{gallery}/videos/create', [GalleryVideoController::class, 'create'])->name('galleries.videos.create');
+        Route::post('/galleries/{gallery}/videos', [GalleryVideoController::class, 'store'])->name('galleries.videos.store');
+        Route::get('/galleries/{gallery}/videos/{video}/edit', [GalleryVideoController::class, 'edit'])->name('galleries.videos.edit');
+        Route::put('/galleries/{gallery}/videos/{video}', [GalleryVideoController::class, 'update'])->name('galleries.videos.update');
+        Route::delete('/galleries/{gallery}/videos/{video}', [GalleryVideoController::class, 'destroy'])->name('galleries.videos.destroy');
         
         Route::get('/galleries/{gallery}/albums/{album}/images/create', [AlbumImageController::class, 'create'])->name('galleries.albums.images.create');
         Route::post('/galleries/{gallery}/albums/{album}/images', [AlbumImageController::class, 'store'])->name('galleries.albums.images.store');
         Route::get('/galleries/{gallery}/albums/{album}/images/{image}/edit', [AlbumImageController::class, 'edit'])->name('galleries.albums.images.edit');
         Route::put('/galleries/{gallery}/albums/{album}/images/{image}', [AlbumImageController::class, 'update'])->name('galleries.albums.images.update');
         Route::delete('/galleries/{gallery}/albums/{album}/images/{image}', [AlbumImageController::class, 'destroy'])->name('galleries.albums.images.destroy');
+        
+        Route::get('/galleries/{gallery}/albums/{album}/videos/create', [AlbumVideoController::class, 'create'])->name('galleries.albums.videos.create');
+        Route::post('/galleries/{gallery}/albums/{album}/videos', [AlbumVideoController::class, 'store'])->name('galleries.albums.videos.store');
+        Route::get('/galleries/{gallery}/albums/{album}/videos/{video}/edit', [AlbumVideoController::class, 'edit'])->name('galleries.albums.videos.edit');
+        Route::put('/galleries/{gallery}/albums/{album}/videos/{video}', [AlbumVideoController::class, 'update'])->name('galleries.albums.videos.update');
+        Route::delete('/galleries/{gallery}/albums/{album}/videos/{video}', [AlbumVideoController::class, 'destroy'])->name('galleries.albums.videos.destroy');
         
         Route::fallback(function () {
             return abort(404);

@@ -50,12 +50,21 @@ class Album extends Model implements HasMedia
             $album->images()->each(function($image){
                 $image->delete();
             });
+            
+            $album->videos()->each(function($video){
+                $video->delete();
+            });
         });
     }
 
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function videos(): MorphMany
+    {
+        return $this->morphMany(Video::class, 'videoable');
     }
 
     public function sluggable(): array
