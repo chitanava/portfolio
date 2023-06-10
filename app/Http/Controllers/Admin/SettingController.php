@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Album;
 use App\Models\Gallery;
 use App\Models\Setting;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Artisan;
 
 class SettingController extends Controller
 {
@@ -34,6 +36,7 @@ class SettingController extends Controller
             'album_bank' => 'nullable|array',
             'default_fonts' => 'required',
             'home_images' => 'nullable|integer',
+            'maintenance_mode' => 'required',
         ]);
 
         $settings = Setting::firstOrFail();
@@ -45,6 +48,21 @@ class SettingController extends Controller
             'default_fonts' => $request->default_fonts,
             'home_images' => $request->home_images,
         ]);
+
+        if($settings->maintenance_mode !== (int)$request->maintenance_mode) {
+            $settings->update([
+                'maintenance_mode' => $request->maintenance_mode,
+                'maintenance_token' => $request->maintenance_mode ? Str::random(12) : null
+            ]);
+
+            if($request->maintenance_mode){
+                Artisan::call('up');
+                Artisan::call('down --secret="'.$settings->maintenance_token.'"');
+            } else {
+                Artisan::call('up');
+            }
+        }
+
 
         Gallery::where('home_bank', 1)->update(['home_bank' => 0]);
         Album::where('home_bank', 1)->update(['home_bank' => 0]);
