@@ -16,5 +16,7 @@ class Setting extends Model
         'app_name',
         'default_fonts',
         'home_images',
+        'maintenance_mode',
+        'maintenance_token',
     ];
 }

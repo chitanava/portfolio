@@ -25,11 +25,30 @@
             <label class="label cursor-pointer gap-4">
               <span class="label-text">Default Fonts</span> 
               <input type="hidden" name="default_fonts" value="0">
-              <input type="checkbox" name="default_fonts" value="1" class="toggle" @checked(old('active', $settings->default_fonts)) />
+              <input type="checkbox" name="default_fonts" value="1" class="toggle" @checked(old('default_fonts', $settings->default_fonts)) />
             </label>
             @error('default_fonts')
               <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
             @enderror
+          </div>
+
+          <div class="form-control items-start">
+            <label class="label cursor-pointer gap-4">
+              <span class="label-text">Maintenance Mode</span> 
+              <input type="hidden" name="maintenance_mode" value="0">
+              <input type="checkbox" name="maintenance_mode" value="1" class="toggle" @checked(old('maintenance_mode', $settings->maintenance_mode)) />
+            </label>
+            @error('maintenance_mode')
+              <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+            @enderror
+            @if ($settings->maintenance_mode && $settings->maintenance_token)
+              <div class="mt-3 alert shadow-lg">
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  <p class="text-sm">You can access the application by using the token <span class="text-secondary-focus">{{ $settings->maintenance_token }}</span> in the URL.</p>
+                </div>
+              </div>
+            @endif
           </div>
         </div>
       </div>
