@@ -73,7 +73,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
         Route::get('/galleries/{gallery}/images/create', [GalleryImageController::class, 'create'])->name('galleries.images.create');
         Route::post('/galleries/{gallery}/images', [GalleryImageController::class, 'store'])->name('galleries.images.store');
-        Route::get('/galleries/{gallery}/images/{video}/edit', [GalleryImageController::class, 'edit'])->name('galleries.images.edit');
+        Route::get('/galleries/{gallery}/images/{image}/edit', [GalleryImageController::class, 'edit'])->name('galleries.images.edit');
         Route::put('/galleries/{gallery}/images/{image}', [GalleryImageController::class, 'update'])->name('galleries.images.update');
         Route::delete('/galleries/{gallery}/images/{image}', [GalleryImageController::class, 'destroy'])->name('galleries.images.destroy');
         
