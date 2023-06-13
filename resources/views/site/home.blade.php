@@ -1,5 +1,5 @@
 <x-site.layout.app>
-  <x-slot name="title">Home</x-slot>
+  {{-- <x-slot name="title">Home</x-slot> --}}
   @if ($images->isNotEmpty())
     @if ($images->count() == 1)
       <div x-show="show" class="fixed top-0 right-0 bottom-0 left-0 lg:left-80 bg-white">
