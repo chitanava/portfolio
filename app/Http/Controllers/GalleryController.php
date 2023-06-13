@@ -20,9 +20,18 @@ class GalleryController extends Controller
             ->orderBy('ord', 'asc')
             ->get();
 
-        $galleryItems = $albums->concat($images)
+        $videos = $gallery->videos()
+            ->where('active', 1)
+            ->orderBy('ord', 'asc')
+            ->get();
+
+        $galleryItems = $albums
+            ->concat($images)
+            ->concat($videos)
             ->sortBy('ord')
             ->values();
+
+            // dd($galleryItems[10]->class);
 
         return view('site.gallery', ['gallery' => $gallery, 'galleryItems' => $galleryItems]);
     }

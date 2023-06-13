@@ -18,10 +18,20 @@ class AlbumController extends Controller
             ->where('active', 1)
             ->orderBy('ord', 'asc')
             ->get();
+        
+        $videos = $album->videos()
+            ->where('active', 1)
+            ->orderBy('ord', 'asc')
+            ->get();
+
+        $albumItems = $images
+            ->concat($videos)
+            ->sortBy('ord')
+            ->values();
 
         return view('site.album', [
             'gallery' => $gallery, 
             'album' => $album, 
-            'images' => $images]);
+            'albumItems' => $albumItems]);
     }
 }

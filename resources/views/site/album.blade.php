@@ -5,7 +5,7 @@
     <h2 class="font-bold text-md">{{ $album->title }}</h2> 
     <div class="text-sm">{!! $album->description !!}</div>
   </div>
-  <x-site.art-gallery :gallery="$gallery" :items="$images" />
+  <x-site.art-gallery :gallery="$gallery" :items="$albumItems" />
 
   <x-slot name="albumDescription">
     <div class="description flex-col gap-10 hidden lg:flex">
