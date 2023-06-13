@@ -4,45 +4,84 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Image;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class AlbumItemsList extends Component
 {
     public $gallery;
     public $album;
-    public $images = [];
+    public $data = [];
 
     public function mount()
     {
-        $this->images = $this->album->images()->orderBy('ord', 'asc')->get();
+        $this->data = $this->concatedData();
     }
 
     public function updateOrder($data)
     {
         foreach($data as $item){
-            $image = Image::findOrFail($item['value']);
-            $image->ord = $item['order'];
-            $image->save();
+            list($id, $class) = explode(':',$item['value']);
+            $model = $class::findOrFail($id);
+            $model->ord = $item['order'];
+            $model->save();
         }
 
-        $this->images = $this->album->images()->orderBy('ord', 'asc')->get();
+        $this->data = $this->concatedData();
     }
 
-    public function delete($id)
+    public function delete($id, $class)
     {
-        $this->emit('delete', [
-            'action' => route('admin.galleries.albums.images.destroy', [$this->gallery->id, $this->album->id, $id]),
-            'title' => 'Are you sure you want to delete the Image?',
-            'body' => 'This action will permanently remove image.',
-        ]);
+        if (Str::endsWith($class, 'Video')) 
+        {
+            $action = route('admin.galleries.albums.videos.destroy', [$this->gallery->id, $this->album->id, $id]);
+
+            $this->emit('delete', [
+                'action' => $action,
+                'title' => 'Are you sure you want to delete the Video?',
+                'body' => 'This action will permanently remove video.',
+            ]);
+        } 
+        else 
+        {
+            $action = route('admin.galleries.albums.images.destroy', [$this->gallery->id, $this->album->id, $id]);
+
+            $this->emit('delete', [
+                'action' => $action,
+                'title' => 'Are you sure you want to delete the Image?',
+                'body' => 'This action will permanently remove image.',
+            ]);
+        }
+
+        $this->data = $this->concatedData();
     }
 
-    public function active($id)
+    public function active($id, $class)
     {
-        $image = Image::findOrFail($id);
-        $image->active = !$image->active;
-        $image->save();
+        $model = $class::findOrFail($id);
+        $model->active = !$model->active;
+        $model->save();
 
-        $this->images = $this->album->images()->orderBy('ord', 'asc')->get();
+        $this->data = $this->concatedData();
+    }
+
+    protected function concatedData()
+    {
+        $images = $this->album
+                    ->images()
+                    ->orderBy('ord', 'asc')
+                    ->get();
+
+        $videos = $this->album
+                    ->videos()
+                    ->orderBy('ord', 'asc')
+                    ->get();
+
+        $concated = $images
+                        ->concat($videos)
+                        ->sortBy('ord')
+                        ->values();
+        
+        return collect($concated);
     }
 
     public function render()

@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
-use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-
-class Album extends Model implements HasMedia
+class Video extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
@@ -20,11 +19,12 @@ class Album extends Model implements HasMedia
 
     protected $fillable = [
         'title',
-        'description',
+        'url',
+        'caption',
         'active',
     ];
 
-    protected $appends = ['class'];
+    protected $appends = ['class', 'video_id'];
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -40,31 +40,20 @@ class Album extends Model implements HasMedia
     protected function class(): Attribute
     {
         return new Attribute(
-            get: fn () => Album::class,
+            get: fn () => Video::class,
         );
     }
 
-    protected static function booted(): void
+    protected function videoId(): Attribute
     {
-        static::deleting(function (Album $album) {
-            $album->images()->each(function($image){
-                $image->delete();
-            });
-            
-            $album->videos()->each(function($video){
-                $video->delete();
-            });
-        });
+        return new Attribute(
+            get: fn () => videoId($this->url),
+        );
     }
 
-    public function images(): MorphMany
+    public function videoable(): MorphTo
     {
-        return $this->morphMany(Image::class, 'imageable');
-    }
-
-    public function videos(): MorphMany
-    {
-        return $this->morphMany(Video::class, 'videoable');
+        return $this->morphTo();
     }
 
     public function sluggable(): array

@@ -16,7 +16,7 @@
       onclick="Livewire.emit('delete', {
           action: '{{ route('admin.galleries.destroy', $gallery->id) }}',
           title: 'Are you sure you want to delete the Gallery?',
-          body: 'This action will permanently remove all data, including albums and images, associated with it.'
+          body: 'This action will permanently remove all data, including albums, images and videos associated with it.'
         })">Delete gallery</label>
   </x-admin.page-header>
 

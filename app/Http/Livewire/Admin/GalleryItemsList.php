@@ -29,15 +29,28 @@ class GalleryItemsList extends Component
 
     public function delete($id, $class)
     {
-        if(Str::endsWith($class, 'Album')) {
+        if (Str::endsWith($class, 'Album')) 
+        {
             $action = route('admin.galleries.albums.destroy', [$this->gallery->id, $id]);
 
             $this->emit('delete', [
                 'action' => $action,
                 'title' => 'Are you sure you want to delete the Album?',
-                'body' => 'This action will permanently remove all data, including images, associated with it.',
+                'body' => 'This action will permanently remove all data, including images and videos, associated with it.',
             ]);
-        } else {
+        } 
+        elseif (Str::endsWith($class, 'Video'))
+        {
+            $action = route('admin.galleries.videos.destroy', [$this->gallery->id, $id]);
+
+            $this->emit('delete', [
+                'action' => $action,
+                'title' => 'Are you sure you want to delete the Video?',
+                'body' => 'This action will permanently remove video.',
+            ]);
+        }
+        else 
+        {
             $action = route('admin.galleries.images.destroy', [$this->gallery->id, $id]);
 
             $this->emit('delete', [
@@ -71,7 +84,14 @@ class GalleryItemsList extends Component
                     ->orderBy('ord', 'asc')
                     ->get();
 
-        $concated = $albums->concat($images)
+        $videos = $this->gallery
+                    ->videos()
+                    ->orderBy('ord', 'asc')
+                    ->get();
+
+        $concated = $albums
+                        ->concat($images)
+                        ->concat($videos)
                         ->sortBy('ord')
                         ->values();
                         // ->toArray();

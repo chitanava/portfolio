@@ -1,27 +1,27 @@
 <x-admin.layout.app>
-  <x-slot name="title">Edit Album</x-slot>
+  <x-slot name="title">Edit Video</x-slot>
 
   <x-slot name="breadcrumbs">
     <x-admin.breadcrumbs :items="[
         ['title' => 'Galleries', 'url' => route('admin.galleries')],
         ['title' => $gallery->title, 'url' => route('admin.galleries.show', $gallery->id)],
-        ['title' => $album->title, 'url' => route('admin.galleries.albums.show', [$gallery->id, $album->id])],
+        ['title' => $video->title],
         ['title' => 'Edit']
     ]"/>
   </x-slot>
-  
-  <x-admin.page-header title="Edit {{ $album->title }}">
+
+  <x-admin.page-header title="Edit {{ $video->title }}">
     <label 
     for="modal-delete"
     class="btn btn-secondary" 
     onclick="Livewire.emit('delete', {
-        action: '{{ route('admin.galleries.albums.destroy', [$gallery->id, $album->id]) }}',
-        title: 'Are you sure you want to delete the Album?',
-        body: 'This action will permanently remove all data, including images and videos associated with it.'
-      })">Delete album</label>
+        action: '{{ route('admin.galleries.videos.destroy', [$gallery->id, $video->id]) }}',
+        title: 'Are you sure you want to delete the Video?',
+        body: 'This action will permanently remove video.'
+      })">Delete video</label>
   </x-admin.page-header>
 
-  <form action="{{ route('admin.galleries.albums.update', [$gallery->id, $album->id]) }}" method="POST" enctype="multipart/form-data">
+  <form action="{{ route('admin.galleries.videos.update', [$gallery->id, $video->id]) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="grid grid-cols-3 gap-8 items-start">
@@ -31,19 +31,29 @@
           <label for="title" class="label">
             <span class="label-text">Title</span>
           </label>
-          <input type="text" name="title" value="{{ old('title', $album->title) }}" id="title" class="input input-bordered" />
+          <input type="text" name="title" value="{{ old('title', $video->title) }}" id="title" class="input input-bordered" />
           @error('title')
             <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
           @enderror
         </div>
 
         <div class="form-control w-full">
-          <label for="description" class="label">
-            <span class="label-text">Description</span>
+          <label for="url" class="label">
+            <span class="label-text">Url</span>
           </label>
-          <input id="x" type="hidden" name="description" value="{{ old('description', $album->description) }}">
+          <input type="text" name="url" value="{{ old('url', $video->url) }}" id="url" class="input input-bordered" />
+          @error('url')
+            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+          @enderror
+        </div>
+
+        <div class="form-control w-full">
+          <label for="caption" class="label">
+            <span class="label-text">Caption</span>
+          </label>
+          <input id="x" type="hidden" name="caption" value="{{ old('caption', $video->caption) }}">
           <trix-editor input="x" class="trix-content textarea textarea-bordered white rounded-none min-h-[15rem]"></trix-editor>
-          @error('description')
+          @error('caption')
             <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
           @enderror
         </div>
@@ -52,7 +62,7 @@
           <label class="label cursor-pointer gap-4">
             <span class="label-text">Active</span> 
             <input type="hidden" name="active" value="0">
-            <input type="checkbox" name="active" value="1" class="toggle" @checked(old('active', $album->active)) />
+            <input type="checkbox" name="active" value="1" class="toggle" @checked(old('active', $video->active)) />
           </label>
           @error('active')
             <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
@@ -65,7 +75,7 @@
         <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Cover image</div>
         <div class="p-8 space-y-6">
           <figure>
-            <img src="{{ $album->getFirstMediaUrl('default', 'md') }}" class="max-w-xs rounded-xl" />
+            <img src="{{ $video->getFirstMediaUrl('default', 'md') }}" class="max-w-xs rounded-xl" />
           </figure>
           <div class="form-control w-full">
             <input type="file" name="cover" class="file-input file-input-bordered file-input-ghost w-full" />
@@ -80,7 +90,7 @@
     <div class="mt-8 xl:mt-4">
       <button type="submit" class="btn btn-accent">Update</button>
     </div>
-  </form>  
+  </form> 
 
   <x-slot:modal>
     <x-admin.modal-delete/>
@@ -101,6 +111,5 @@
         e.preventDefault();
       })
     </script>
-  @endpush
-
+  @endpush  
 </x-admin.layout.app>

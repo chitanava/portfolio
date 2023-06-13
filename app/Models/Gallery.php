@@ -28,10 +28,18 @@ class Gallery extends Model
                 $album->images()->each(function($image){
                     $image->delete();
                 });
+
+                $album->videos()->each(function($video){
+                    $video->delete();
+                });
             });
 
             $gallery->images()->each(function($image){
                 $image->delete();
+            });
+
+            $gallery->videos()->each(function($video){
+                $video->delete();
             });
         });
     }
@@ -44,6 +52,11 @@ class Gallery extends Model
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function videos(): MorphMany
+    {
+        return $this->morphMany(Video::class, 'videoable');
     }
 
     public function sluggable(): array
