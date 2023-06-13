@@ -17,6 +17,7 @@ class Gallery extends Model
     protected $fillable = [
         'title',
         'active',
+        'description',
     ];
 
     protected static function booted(): void

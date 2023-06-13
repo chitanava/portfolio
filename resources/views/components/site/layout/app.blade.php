@@ -35,7 +35,7 @@
       </main>
     </div>
     <x-site.sidebar>
-      {{ $albumDescription ?? '' }}
+      {{ $descriptions ?? '' }}
     </x-site.sidebar>
   </div>
 

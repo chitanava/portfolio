@@ -21,9 +21,13 @@
         </ul>
       </nav>
 
-      {{ $slot }}
-
-      <div class="caption hidden lg:block"></div>
+      <div class="hidden lg:block">
+        <div class="flex flex-col gap-10"> 
+            {{ $slot }}
+          <div class="image-caption"></div>
+        </div>
+      </div>
+      
     </div>
   </aside>
 </div>

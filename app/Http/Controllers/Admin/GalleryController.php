@@ -24,6 +24,7 @@ class GalleryController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'active' => 'required',
+            'description' => 'nullable|string',
         ]);
 
         Gallery::create($validated);
@@ -48,6 +49,7 @@ class GalleryController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'active' => 'required',
+            'description' => 'nullable|string',
         ]);
 
         $gallery->update($validated);

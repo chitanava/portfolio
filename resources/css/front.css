@@ -253,6 +253,7 @@ body{
   }
 }
 
-.description + .caption .devider{
+.gallery-description + .image-caption .devider,
+.album-description + .image-caption .devider {
   display: none;
 }

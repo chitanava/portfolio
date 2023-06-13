@@ -6,14 +6,11 @@
         ['title' => 'Galleries', 'url' => route('admin.galleries')],
         ['title' => $gallery->title, 'url' => route('admin.galleries.show', $gallery->id)],
         ['title' => 'Edit']
-    ]"/>
+    ]" />
   </x-slot>
-  
-  <x-admin.page-header title="Edit {{ $gallery->title }}">    
-    <label 
-      for="modal-delete"
-      class="btn btn-secondary" 
-      onclick="Livewire.emit('delete', {
+
+  <x-admin.page-header title="Edit {{ $gallery->title }}">
+    <label for="modal-delete" class="btn btn-secondary" onclick="Livewire.emit('delete', {
           action: '{{ route('admin.galleries.destroy', $gallery->id) }}',
           title: 'Are you sure you want to delete the Gallery?',
           body: 'This action will permanently remove all data, including albums, images and videos associated with it.'
@@ -29,32 +26,62 @@
           <label for="title" class="label">
             <span class="label-text">Title</span>
           </label>
-          <input type="text" name="title" value="{{ old('title', $gallery->title) }}" id="title" class="input input-bordered" />
+          <input type="text" name="title" value="{{ old('title', $gallery->title) }}" id="title"
+            class="input input-bordered" />
           @error('title')
-            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+          <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+          @enderror
+        </div>
+
+        <div class="form-control w-full">
+          <label for="description" class="label">
+            <span class="label-text">Description</span>
+          </label>
+          <input id="x" type="hidden" name="description" value="{{ old('description', $gallery->description) }}">
+          <trix-editor input="x" class="trix-content textarea textarea-bordered white rounded-none min-h-[15rem]">
+          </trix-editor>
+          @error('description')
+          <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
           @enderror
         </div>
 
         <div class="form-control items-start">
           <label class="label cursor-pointer gap-4">
-            <span class="label-text">Active</span> 
+            <span class="label-text">Active</span>
             <input type="hidden" name="active" value="0">
             <input type="checkbox" name="active" value="1" class="toggle" @checked(old('active', $gallery->active)) />
           </label>
           @error('active')
-            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+          <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
           @enderror
         </div>
       </div>
-    </div>  
+    </div>
 
     <div class="mt-4">
       <button type="submit" class="btn btn-accent">Update</button>
     </div>
-  </form>  
+  </form>
 
   <x-slot:modal>
-    <x-admin.modal-delete/>
+    <x-admin.modal-delete />
   </x-slot:modal>
+
+  @push('header-scripts')
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+  <style>
+    .trix-button-group.trix-button-group--file-tools {
+      display: none;
+    }
+  </style>
+  @endpush
+
+  @push('footer-scripts')
+  <script>
+    document.addEventListener("trix-file-accept", (e) => {
+      e.preventDefault();
+    })
+  </script>
+  @endpush
 
 </x-admin.layout.app>

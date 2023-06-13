@@ -121,7 +121,7 @@ x-data="{
       </div>
     </div>
   
-    <template x-teleport=".caption">
+    <template x-teleport=".image-caption">
       <div x-show="show && current?.caption" class="flex flex-col gap-10" x-cloak>
         <div class="h-px bg-gray-300 devider"></div>
         <div x-html="current?.caption"></div>

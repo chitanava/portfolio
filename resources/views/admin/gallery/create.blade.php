@@ -5,10 +5,10 @@
     <x-admin.breadcrumbs :items="[
         ['title' => 'Galleries', 'url' => route('admin.galleries')],
         ['title' => 'Create']
-    ]"/>
+    ]" />
   </x-slot>
-  
-  <x-admin.page-header title="Create Gallery"/>
+
+  <x-admin.page-header title="Create Gallery" />
 
   <form action="{{ route('admin.galleries.store') }}" method="POST">
     @csrf
@@ -20,25 +20,54 @@
           </label>
           <input type="text" name="title" value="{{ old('title') }}" id="title" class="input input-bordered" />
           @error('title')
-            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+          <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+          @enderror
+        </div>
+
+        <div class="form-control w-full">
+          <label for="description" class="label">
+            <span class="label-text">Description</span>
+          </label>
+          <input id="x" type="hidden" name="description" value="{{ old('description') }}">
+          <trix-editor input="x" class="trix-content textarea textarea-bordered min-h-[15rem] rounded-none">
+          </trix-editor>
+          @error('description')
+          <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
           @enderror
         </div>
 
         <div class="form-control items-start">
           <label class="label cursor-pointer gap-4">
-            <span class="label-text">Active</span> 
+            <span class="label-text">Active</span>
             <input type="hidden" name="active" value="0">
             <input type="checkbox" name="active" value="1" class="toggle" @checked(old('active', true)) />
           </label>
           @error('active')
-            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+          <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
           @enderror
         </div>
       </div>
-    </div>  
+    </div>
 
     <div class="mt-4">
       <button type="submit" class="btn btn-accent">Create</button>
     </div>
-  </form>  
+  </form>
+
+  @push('header-scripts')
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+  <style>
+    .trix-button-group.trix-button-group--file-tools {
+      display: none;
+    }
+  </style>
+  @endpush
+
+  @push('footer-scripts')
+  <script>
+    document.addEventListener("trix-file-accept", (e) => {
+      e.preventDefault();
+    })
+  </script>
+  @endpush
 </x-admin.layout.app>
