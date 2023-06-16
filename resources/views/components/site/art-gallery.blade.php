@@ -34,6 +34,32 @@ x-data="{
       target?.classList.contains('art-box_item') && self.open(+target.dataset.id)
     })
 
+    document.addEventListener('keydown', e => {
+      if(self.show){
+        if(e.key==='ArrowLeft'){
+          if(self.prev === 0) return
+          self.open(self.prev)
+        }
+        if(e.key==='ArrowRight'){
+          if(self.next === 0) return
+          self.open(self.next)
+        }
+        if(e.key==='Escape'){
+          self.close()
+        }
+      }
+    })
+
+    document.querySelector('#art-screen').addEventListener('swiped-right', (e) => {
+      if(self.prev === 0) return
+      self.open(self.prev)
+    });
+    
+    document.querySelector('#art-screen').addEventListener('swiped-left', (e) => {
+      if(self.next === 0) return
+      self.open(self.next)
+    });
+
     document.querySelector('#art-screen .art-item img').addEventListener('load', function(){
       self.loading = false
     })
@@ -158,4 +184,8 @@ x-data="{
   <template x-for="image in cache">
     <img :src="image.path" class="hidden">
   </template>
+
+  @push('footer-scripts')
+    <script src="{{ asset('js/swiped-events.min.js') }}"></script>
+  @endpush
 </div>
