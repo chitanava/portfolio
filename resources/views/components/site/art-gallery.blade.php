@@ -19,12 +19,8 @@ x-data="{
       const id = index + 1
       el.dataset.id = id
 
-      el.addEventListener('click', function(event){
-        self.open(id)
-      })
-
       return {
-        id: parseInt(el.dataset.id),
+        id: +el.dataset.id,
         caption: el.dataset.caption,
         path: el.dataset.path,
         type: el.dataset.type,
@@ -32,6 +28,11 @@ x-data="{
     })
 
     this.total = this.items.length
+
+    document.querySelector('.art-box').addEventListener('click', e => {
+      const target = e.target.closest('.art-box_item')
+      target?.classList.contains('art-box_item') && self.open(+target.dataset.id)
+    })
 
     document.querySelector('#art-screen .art-item img').addEventListener('load', function(){
       self.loading = false
@@ -101,11 +102,13 @@ x-data="{
   <div x-show="show" id="art-screen" class="fixed top-0 right-0 bottom-0 left-0 lg:left-80 bg-white z-20" x-cloak>
     <div class="art-item h-full flex flex-col gap-3 justify-center items-center pl-10 pr-10 lg:pl-0 py-24 relative">
       <img x-show="current?.type == 'image'" class="max-w-full max-h-full" :src="current?.type === 'image' && current?.path" alt="">
-      <div x-show="current?.type == 'video'" class="w-11/12 lg:w-3/4">
-        <div class="aspect-w-16 aspect-h-9">
-          <iframe :src="`https://www.youtube.com/embed/${current?.path}`" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      @if ($items->contains('class', 'App\Models\Video'))        
+        <div x-show="current?.type == 'video'" class="w-11/12 lg:w-3/4">
+          <div class="aspect-w-16 aspect-h-9">
+            <iframe :src="`https://www.youtube.com/embed/${current?.path}`" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
-      </div>
+      @endif
       <div x-show="current?.caption" x-html="current?.caption" class="text-sm lg:hidden"></div>
       <div x-show="loading" class="w-full h-full bg-white absolute top-0 left-0 flex justify-center items-center" x-cloak>
         <div aria-label="Loading..." role="status">
