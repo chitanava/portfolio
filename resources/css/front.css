@@ -244,11 +244,11 @@ body{
 }
 
 @media (min-width: 640px) {
-  .art-box img.art-box_image:nth-child(2n):not(:last-of-type) {
+  .art-box .art-box_image:nth-child(2n):not(:last-of-type) {
     grid-row-end: span 2;
   }
 
-  .art-box img.art-box_image:nth-last-child(-n+6):not(:last-of-type) {
+  .art-box .art-box_image:nth-last-child(-n+6):not(:last-of-type) {
     grid-row-end: span 1;
   }
 }

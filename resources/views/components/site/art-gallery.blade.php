@@ -63,6 +63,23 @@ x-data="{
     document.querySelector('#art-screen .art-item img').addEventListener('load', function(){
       self.loading = false
     })
+
+    const imgObserver = new IntersectionObserver(function(entries, observer){
+      entries.forEach(entry => {
+        if(!entry.isIntersecting) return
+        entry.target.src = entry.target.dataset.mdsrc
+
+        entry.target.addEventListener('load', () => {
+          entry.target.classList.remove('blur-sm', 'scale-105')
+        })
+      })
+    },
+    {
+      root: null,
+      threshold: 0,
+    })
+
+    document.querySelectorAll('img[data-mdsrc]').forEach(img => imgObserver.observe(img))
   },
 
   open(id){
@@ -90,11 +107,12 @@ x-data="{
   <div class="art-box">
     @foreach ($items as $item)
       @if (class_basename($item['class']) === 'Album')
-        <a href="{{ route('gallery.album', [$gallery->slug, $item->slug]) }}" class="bg-slate-100 relative group">
+        <a href="{{ route('gallery.album', [$gallery->slug, $item->slug]) }}" class="bg-slate-100 relative group overflow-hidden">
           <img 
-            src="{{ $item->getFirstMediaUrl('default', 'md') }}"
+            data-mdsrc="{{ $item->getFirstMediaUrl('default', 'md') }}"
+            src="{{ $item->getFirstMediaUrl('default', 'sm') }}"
             alt="{{ strip_tags($item->title) }}@if($item->description) - {{ strip_tags($item->description) }}@endif"
-            class="object-cover cursor-pointer w-full h-full bg-gray-100 group-hover:opacity-95">
+            class="object-cover cursor-pointer w-full h-full bg-gray-100 group-hover:opacity-95 blur-sm scale-105">
             <div class="absolute bottom-0 left-0">
               <h2 class="max-w-fit backdrop-blur-md bg-white/10 text-gray-200 font-bold text-lg px-4 py-2 text-center group-hover:text-gray-50">{{ $item->title }}</h2>
             </div>
@@ -104,23 +122,29 @@ x-data="{
           data-type="{{ strtolower(class_basename($item['class'])) }}"
           data-path="{{ $item->video_id }}"
           data-caption="{{ $item->caption }}" 
-          class="art-box_item bg-slate-100 relative group cursor-pointer">
-          <img 
-            src="{{ $item->getFirstMediaUrl('default', 'md') }}" 
+          class="art-box_item bg-slate-100 relative group cursor-pointer overflow-hidden">
+          <img
+            data-mdsrc="{{ $item->getFirstMediaUrl('default', 'md') }}" 
+            src="{{ $item->getFirstMediaUrl('default', 'sm') }}" 
             alt="{{ strip_tags($item->caption) }}" 
-            class="object-cover w-full h-full bg-gray-100 group-hover:opacity-95">
+            class="object-cover w-full h-full bg-gray-100 group-hover:opacity-95 blur-sm scale-105">
           <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12">
             <img src="{{ asset('/images/play.png') }}" class="object-cover opacity-90 group-hover:opacity-100">   
           </div>
         </div>
       @else
-        <img 
+        <div
           data-type="{{ strtolower(class_basename($item['class'])) }}"
           data-path="{{ $item->getFirstMediaUrl() }}"
           data-caption="{{ $item->caption }}" 
-          src="{{ $item->getFirstMediaUrl('default', 'md') }}"
-          alt="{{ strip_tags($item->caption) }}"
-          class="art-box_item art-box_image object-cover cursor-pointer w-full h-full bg-gray-100 hover:opacity-95">
+          class="art-box_item art-box_image bg-gray-100 cursor-pointer overflow-hidden"
+        >
+          <img
+              data-mdsrc="{{ $item->getFirstMediaUrl('default', 'md') }}" 
+              src="{{ $item->getFirstMediaUrl('default', 'sm') }}"
+              alt="{{ strip_tags($item->caption) }}"
+              class="object-cover w-full h-full hover:opacity-95 blur-sm scale-105">
+        </div>
       @endif
     @endforeach
   </div>
