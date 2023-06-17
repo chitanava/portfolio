@@ -1,4 +1,4 @@
-<div class="flex justify-between lg:hidden pt-5 pb-2 px-10 sticky top-0 bg-white z-10 bg-opacity-70 backdrop-blur">
+<div class="flex justify-between lg:hidden pt-5 pb-2 px-10 sticky top-0 bg-white z-10 bg-opacity-70 backdrop-blur items-center">
   <h2 class="font-La-belle-aurore text-4xl app-name header_app-name">
     <a href="{{  route('home')  }}">{{ $settings->app_name ?? config('app.name') }}</a>
   </h2>
