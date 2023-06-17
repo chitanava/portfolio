@@ -72,6 +72,8 @@ x-data="{
         entry.target.addEventListener('load', () => {
           entry.target.classList.remove('blur-sm', 'scale-105')
         })
+
+        observer.unobserve(entry.target)
       })
     },
     {
