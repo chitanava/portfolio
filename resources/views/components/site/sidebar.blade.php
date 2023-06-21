@@ -27,7 +27,16 @@
           <div class="image-caption"></div>
         </div>
       </div>
-      
     </div>
+
+    @if ($socialLinks->isNotEmpty())      
+      <div class="fixed bottom-10 left-10 right-4 flex gap-2">
+        @foreach ($socialLinks as $link)
+            <a href="{{ $link->url }}" target="_blank">
+              @svg('si-'.$link->icon_slug, 'w-4 h-4 text-gray-900')
+            </a>
+        @endforeach
+      </div>
+    @endif
   </aside>
 </div>
