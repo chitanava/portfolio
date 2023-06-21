@@ -25,5 +25,8 @@ class AppServiceProvider extends ServiceProvider
 
         View::share('settings', 
             \App\Models\Setting::firstOrFail());
+
+        View::share('socialLinks',
+            \App\Models\SocialLink::all());
     }
 }

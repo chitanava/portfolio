@@ -11,6 +11,12 @@
     </x-admin.icon>
     {{ __('common.Biography') }}
   </x-admin.sidebar.menu-item>
+  <x-admin.sidebar.menu-item :link="route('admin.social-links')" :active="active_link('admin.social-links')">
+    <x-admin.icon stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+    </x-admin.icon>
+    Social Links
+  </x-admin.sidebar.menu-item>
   <x-admin.sidebar.menu-item :link="route('admin.settings.edit')" :active="active_link('admin.settings.edit')">
     <x-admin.icon stroke-width="2">
       <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
