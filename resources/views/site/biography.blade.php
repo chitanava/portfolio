@@ -2,7 +2,7 @@
   <x-slot name="title">{{ __('common.Biography') }}</x-slot>
 
   <div class="lg:w-2/3 text-justify trix-content">
-    {!! htmlspecialchars_decode($biography->body) !!}
+    {!! $biography->body !!}
   </div>
 
   @push('footer-scripts')
