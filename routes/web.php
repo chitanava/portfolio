@@ -56,6 +56,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
         Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
 
+        Route::view('/social-links', 'admin.social-links.index')->name('social-links');
+
         Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries');
         Route::get('/galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
         Route::post('/galleries', [GalleryController::class, 'store'])->name('galleries.store');
