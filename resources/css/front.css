@@ -197,6 +197,7 @@
 
 body{
   @apply font-poppins;
+  @apply text-gray-900;
 }
 
 .trix-content .attachment__caption{
