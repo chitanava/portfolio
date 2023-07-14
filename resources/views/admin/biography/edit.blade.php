@@ -45,11 +45,16 @@
               event.attachment.remove()
               alert(res.data.message)
             } else {
-              event.attachment.setAttributes({
+              const attributes = {
                 url: res.data.url,
-                // href: `${res.data.url}?content-disposition=attachment`,
                 file: res.data.file,
-              })
+              }
+
+              if(event.attachment.file.type === 'application/pdf'){
+                attributes.href = `${res.data.url}?content-disposition=attachment`
+              }
+
+              event.attachment.setAttributes(attributes)
             }
           })
         })

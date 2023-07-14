@@ -200,7 +200,7 @@ body{
   @apply text-gray-900;
 }
 
-.trix-content .attachment__caption{
+.trix-content .attachment--preview .attachment__caption{
   @apply text-left text-sm text-gray-400 mt-2
 }
 
@@ -234,6 +234,14 @@ body{
 
 .trix-content blockquote{
   @apply border-l-4 border-gray-300 pl-4
+}
+
+.trix-content .attachment--file{
+  @apply inline-block
+}
+
+.trix-content .attachment--file .attachment__name{
+  @apply text-indigo-600
 }
 
 .art-box {
