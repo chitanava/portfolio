@@ -37,7 +37,7 @@ class BiographyController extends Controller
     { 
         try {
             $validator = Validator::make($request->all(), [
-                    'file' => 'required|image|mimes:jpeg,png,jpg|max:'.config('app.upload_max_filesize'),
+                    'file' => 'required|mimes:jpeg,png,jpg,pdf|max:'.config('app.upload_max_filesize'),
                 ])->validate();
 
             $path = $request->file('file')->store(
