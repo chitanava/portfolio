@@ -1,7 +1,9 @@
 <?php
 
+use Spatie\Analytics\Period;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use Spatie\Analytics\Facades\Analytics;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AlbumController;
@@ -30,6 +32,20 @@ Route::get('/symlink', function () {
     Artisan::call('storage:link');
 });
 
+Route::get('/analytics', function () {
+
+    // config(['analytics.property_id' => 'aaaa']);
+
+    // dd(config('analytics.property_id'));
+    
+    //retrieve visitors and page view data for the current day and the last seven days
+    $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(7));
+    dd($analyticsData);
+
+    //retrieve visitors and page views since the 6 months ago
+    // $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::months(6));
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/biography', [\App\Http\Controllers\BiographyController::class, 'index'])->name('biography');
 Route::get('/galleries/{gallery:slug}', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery');
@@ -55,6 +71,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         
         Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
         Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
+        Route::get('/settings/analytics/download/{file}', [SettingController::class, 'downloadAnalyticsSecretJson'])->name('settings.analytics.download');
 
         Route::view('/social-links', 'admin.social-links.index')->name('social-links');
 
