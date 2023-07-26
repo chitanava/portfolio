@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -27,6 +28,10 @@ class SettingController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
+        if($request->delete_file == 'true' ? 1 : 0){
+            Storage::disk('analytics')->delete(env('ANALYTICS_SECRET_JSON'));
+        }
+
         $validated = $request->validate([
             'custom_css' => 'nullable|string',
             'seo_description' => 'nullable|string',
@@ -37,9 +42,14 @@ class SettingController extends Controller
             'default_fonts' => 'required',
             'home_images' => 'nullable|integer',
             'maintenance_mode' => 'required',
+            'google_tag' => 'nullable|string',
+            'analytics_retrieve_data' => 'required',
+            'analytics_property_id' => 'nullable|string',
+            'analytics_secret_json' => 'nullable|mimes:json|max:'.config('app.upload_max_filesize'),
         ]);
-
+        
         $settings = Setting::firstOrFail();
+
         $settings->update([
             'custom_css' => $request->custom_css,
             'seo_description' => $request->seo_description,
@@ -47,7 +57,14 @@ class SettingController extends Controller
             'app_name' => $request->app_name,
             'default_fonts' => $request->default_fonts,
             'home_images' => $request->home_images,
+            'google_tag' => $request->google_tag,
+            'analytics_retrieve_data' => $request->analytics_retrieve_data,
+            'analytics_property_id' => $request->analytics_property_id,
         ]);
+
+        if($request->file('analytics_secret_json')) {
+            $path = $request->file('analytics_secret_json')->storeAs('', env('ANALYTICS_SECRET_JSON'), 'analytics');
+        }
 
         if($settings->maintenance_mode !== (int)$request->maintenance_mode) {
             $settings->update([
@@ -62,7 +79,6 @@ class SettingController extends Controller
                 Artisan::call('up');
             }
         }
-
 
         Gallery::where('home_bank', 1)->update(['home_bank' => 0]);
         Album::where('home_bank', 1)->update(['home_bank' => 0]);
@@ -86,5 +102,9 @@ class SettingController extends Controller
         return redirect()
                 ->route('admin.settings.edit')
                 ->with('status', 'Settings updated.');
+    }
+
+    public function downloadAnalyticsSecretJson($file){
+        return Storage::disk('analytics')->download($file);
     }
 }

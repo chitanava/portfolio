@@ -18,5 +18,8 @@ class Setting extends Model
         'home_images',
         'maintenance_mode',
         'maintenance_token',
+        'google_tag',
+        'analytics_retrieve_data',
+        'analytics_property_id',
     ];
 }
