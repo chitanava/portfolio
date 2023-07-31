@@ -1,4 +1,24 @@
-<div wire:init="loadAnalyticsData" class="shadow rounded-2xl p-6">
+<div x-data='{
+    hiddenItems: [],
+    viewAll(e){
+        this.hiddenItems.forEach(item => item.classList.remove("hidden"));
+        e.target.closest("div").remove();
+    },
+    init(){
+        $wire.on("dataIsFetched", () => {
+            const items = [...$el.querySelectorAll("tbody tr")];
+            this.hiddenItems = items.slice(5);
+
+            this.hiddenItems.forEach(item => item.classList.add("hidden"));
+
+            if(items.length > 5) {
+                const viewAllBtn = `<div class="mt-5 text-right"><button class="btn btn-warning btn-sm btn-outline no-animation" x-on:click="viewAll">View All Data</button></div>`;
+                
+                $el.querySelector(".overflow-x-auto").insertAdjacentHTML("afterend", viewAllBtn);
+            }
+        })
+    },
+}' wire:init="loadAnalyticsData" class="shadow rounded-2xl p-6">
     <div class="flex justify-between items-center mb-6">
         <h3 class="text-lg font-bold">{{ $title }}</h3>
         <select wire:model="analyticsDays" class="select select-bordered w-full max-w-xs">

@@ -30,6 +30,8 @@ class RetrieveAnalyticsData extends Component
             $this->message = 'No data was found.';
         else 
         $this->fields = collect($data[0])->keys();
+
+        $this->emit('dataIsFetched');
         
         return $data;
       } catch (\Throwable $th) {
