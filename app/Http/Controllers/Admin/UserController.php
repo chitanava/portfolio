@@ -36,7 +36,7 @@ class UserController extends Controller
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
  
-            return redirect()->route('admin.galleries');
+            return redirect()->route(homeRouteForAdmin());
         }
 
         return redirect()

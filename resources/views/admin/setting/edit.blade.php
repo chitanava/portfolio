@@ -3,7 +3,7 @@
   
   <x-admin.page-header title="Settings" />
   
-  <form action="{{ route('admin.settings.update') }}" method="POST">
+  <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="space-y-8">
@@ -138,10 +138,91 @@
       </div>
 
       <div class="card bg-base-100 shadow">
+        <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Analytics</div>
+        <div class="card-body space-y-4">
+          <div class="form-control w-full">
+            <label for="" class="label">
+              <span class="label-text">Google Tag</span>
+            </label>
+            <textarea class="code" data-editor-height="170" name="google_tag" class="textarea textarea-bordered rounded-lg">{{ old('google_tag',$settings->google_tag) }}</textarea>
+            @error('google_tag')
+              <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+            @enderror
+          </div>
+          <div x-data="{
+              showConfiguration: {{ old('analytics_retrieve_data', $settings->analytics_retrieve_data) }},
+              showUploadForm: {{ Storage::disk('analytics')->exists(env('ANALYTICS_SECRET_JSON')) ? 0 : 1 }},
+              deleteFile: false,
+            }"
+            class="space-y-4">
+            <div class="form-control items-start">
+              <label class="label cursor-pointer gap-4">
+                <span class="label-text">Retrieve Data</span> 
+                <input type="hidden" name="analytics_retrieve_data" value="0">
+                <input x-on:click="showConfiguration = !showConfiguration" type="checkbox" name="analytics_retrieve_data" value="1" class="toggle" @checked(old('analytics_retrieve_data', $settings->analytics_retrieve_data)) />
+              </label>
+              <p class="text-xs px-1 pt-2 base-content">After enabling data retrieval, the current data from Google Analytics will appear on the dashboard.</p>
+              @error('analytics_retrieve_data')
+                <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <div x-show="showConfiguration" class="space-y-4" x-cloak>
+              <div class="form-control w-full">
+                <label for="analytics_property_id" class="label">
+                  <span class="label-text">Property ID</span>
+                </label>
+                <input type="text" name="analytics_property_id" value="{{ old('analytics_property_id', $settings->analytics_property_id) }}" id="analytics_property_id" class="input input-bordered" />
+                @error('analytics_property_id')
+                  <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+                @enderror
+              </div>
+
+              <div class="form-control w-full">
+                <label for="" class="label">
+                  <span class="label-text">Account Credentials</span>
+                </label>
+
+                <div x-show="!showUploadForm" x-cloak class="w-full relative">
+                  <div class="absolute top-0 right-0 translate-x-2 -translate-y-2">
+                      <button x-on:click.prevent="showUploadForm = true; deleteFile = true;" class="btn btn-square btn-xs btn-secondary">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                              stroke="currentColor" class="w-4 h-4">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                      </button>
+                  </div>
+                  <div class="grid w-full h-12 rounded-full bg-base-300 place-items-center">
+                      <a href="{{ route('admin.settings.analytics.download', env('ANALYTICS_SECRET_JSON')) }}">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                              stroke="currentColor" class="w-4 h-4 inline mr-1">
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                          </svg>
+          
+                          <span class="text-sm">{{ env('ANALYTICS_SECRET_JSON') }}</span>
+                      </a>
+                  </div>
+                  <input type="hidden" name="delete_file" x-model="deleteFile">
+                </div>
+                
+                <div x-show="showUploadForm" x-cloak>
+                  <input type="file" name="analytics_secret_json" class="file-input file-input-bordered file-input-ghost w-full" />
+                  @error('analytics_secret_json')
+                    <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+                  @enderror
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-base-100 shadow">
         <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Custom CSS</div>
         <div class="card-body space-y-4">
           <div class="form-control w-full">
-            <textarea name="custom_css" id="code">{{ old('custom_css', $settings->custom_css) }}</textarea>
+            <textarea name="custom_css" class="code" data-editor-height="270">{{ old('custom_css', $settings->custom_css) }}</textarea>
             @error('custom_css')
               <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
             @enderror
@@ -172,19 +253,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/css/css.min.js"></script>
 
     <script>
-      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-        lineNumbers: true,
-        theme: 'dracula',
-        matchBrackets: true,
-        mode: "text/css",
-        indentUnit: 2,
-        indentWithTabs: true,
-        tabSize: 2,
-        lineWrapping: true,
-        setTize: '800px'
-      });
+      const renderEditor = function(el) {
+        const editor = CodeMirror.fromTextArea(el, {
+          lineNumbers: true,
+          theme: 'dracula',
+          matchBrackets: true,
+          indentUnit: 2,
+          indentWithTabs: true,
+          tabSize: 2,
+          lineWrapping: true,
+        });
+        
+        editor.setSize('100%', `${el.dataset.editorHeight}px`);
+      };
 
-      editor.setSize('100%', '270px')
+      [...document.querySelectorAll('.code')].forEach(el => {
+        renderEditor(el);
+      })
     </script>
   @endpush
 

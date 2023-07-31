@@ -23,3 +23,8 @@ function videoId(string $url): ? string
 
   return null;
 }
+
+function homeRouteForAdmin(): string
+{
+  return \App\Models\Setting::first()->analytics_retrieve_data ? 'admin.dashboard' : 'admin.galleries';
+}

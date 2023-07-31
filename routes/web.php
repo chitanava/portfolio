@@ -1,7 +1,9 @@
 <?php
 
+use Spatie\Analytics\Period;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use Spatie\Analytics\Facades\Analytics;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AlbumController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BiographyController;
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Http\Controllers\Admin\AlbumImageController;
 use App\Http\Controllers\Admin\AlbumVideoController;
@@ -36,7 +39,7 @@ Route::get('/galleries/{gallery:slug}', [\App\Http\Controllers\GalleryController
 Route::get('/galleries/{gallery:slug}/albums/{album:slug}', [\App\Http\Controllers\AlbumController::class, 'index'])->name('gallery.album');
 
 Route::get('/admin', function(){
-    return redirect()->route('admin.galleries');
+    return redirect()->route(homeRouteForAdmin());
 })->middleware('auth');
 
 Route::prefix('admin')->name('admin.')->group(function(){
@@ -45,6 +48,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
     Route::middleware('auth')->group(function(){
+        if(\App\Models\Setting::first()->analytics_retrieve_data)
+            Route::view('/dashboard', 'admin.dashboard.index')->name('dashboard');
+
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
         Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
 
@@ -55,6 +61,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         
         Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
         Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
+        Route::get('/settings/analytics/download/{file}', [SettingController::class, 'downloadAnalyticsSecretJson'])->name('settings.analytics.download');
 
         Route::view('/social-links', 'admin.social-links.index')->name('social-links');
 
