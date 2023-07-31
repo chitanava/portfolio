@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BiographyController;
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Http\Controllers\Admin\AlbumImageController;
 use App\Http\Controllers\Admin\AlbumVideoController;
@@ -32,27 +33,13 @@ Route::get('/symlink', function () {
     Artisan::call('storage:link');
 });
 
-Route::get('/analytics', function () {
-
-    // config(['analytics.property_id' => 'aaaa']);
-
-    // dd(config('analytics.property_id'));
-    
-    //retrieve visitors and page view data for the current day and the last seven days
-    $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(7));
-    dd($analyticsData);
-
-    //retrieve visitors and page views since the 6 months ago
-    // $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::months(6));
-});
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/biography', [\App\Http\Controllers\BiographyController::class, 'index'])->name('biography');
 Route::get('/galleries/{gallery:slug}', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery');
 Route::get('/galleries/{gallery:slug}/albums/{album:slug}', [\App\Http\Controllers\AlbumController::class, 'index'])->name('gallery.album');
 
 Route::get('/admin', function(){
-    return redirect()->route('admin.galleries');
+    return redirect()->route(homeRouteForAdmin());
 })->middleware('auth');
 
 Route::prefix('admin')->name('admin.')->group(function(){
@@ -61,6 +48,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
     Route::middleware('auth')->group(function(){
+        if(\App\Models\Setting::first()->analytics_retrieve_data)
+            Route::view('/dashboard', 'admin.dashboard.index')->name('dashboard');
+
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
         Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
 
