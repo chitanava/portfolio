@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class RetrieveAnalyticsData extends Component
 {
-    public $analyticsDays = 7;
+    public $analyticsDays = 6;
     public $readyToLoad = false;
     public $fields;
     public $message;
@@ -25,13 +25,15 @@ class RetrieveAnalyticsData extends Component
     {
       try {
         $data = \Spatie\Analytics\Facades\Analytics::{$this->method}(\Spatie\Analytics\Period::days($this->analyticsDays));
-        
+
         if(!count($data)) 
             $this->message = 'No data was found.';
         else 
         $this->fields = collect($data[0])->keys();
 
         $this->emit('dataIsFetched');
+
+        $this->emit("updateExportData{$this->method}", $data);
         
         return $data;
       } catch (\Throwable $th) {

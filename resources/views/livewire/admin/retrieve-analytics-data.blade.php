@@ -21,13 +21,18 @@
 }' wire:init="loadAnalyticsData" class="shadow rounded-2xl p-6">
     <div class="flex justify-between items-center mb-6">
         <h3 class="text-lg font-bold">{{ $title }}</h3>
-        <select wire:model="analyticsDays" class="select select-bordered w-full max-w-xs">
-            <option value="1">Today</option>
-            <option value="2">Yesterday</option>
-            <option value="7">Last 7 days</option>
-            <option value="14">Last 14 days</option>
-            <option value="30">Last 30 days</option>
-        </select>
+        <div class="flex items-center gap-4">
+            <select wire:model="analyticsDays" class="select select-bordered">
+                <option value="0">Today</option>
+                <option value="1">Yesterday</option>
+                <option value="6">Last 7 days</option>
+                <option value="13">Last 14 days</option>
+                <option value="29">Last 30 days</option>
+            </select>
+            @if(count($data))
+            <livewire:admin.retrieve-analytics-data-export-dropdown :method="$method" :title="$title" :wire:key="Str::slug($title)"/>
+            @endif
+        </div>
     </div>
 
     <div class="relative">
@@ -42,7 +47,8 @@
                     <tr>
                         <th></th>
                         @foreach ($fields as $field)
-                        <th @if(in_array($field, $centerFields)) class="text-center"  @endif>{{ __('common.'.$field) }}</th>
+                        <th @if(in_array($field, $centerFields)) class="text-center" @endif>{{ __('common.'.$field) }}
+                        </th>
                         @endforeach
                     </tr>
                 </thead>
@@ -51,9 +57,9 @@
                     <tr>
                         <th>{{ $loop->iteration }}</th>
                         @foreach ($item as $key => $value)
-                        <td @if(in_array($key, $centerFields)) class="text-center"  @endif>
+                        <td @if(in_array($key, $centerFields)) class="text-center" @endif>
                             @if (in_array($key, $forHumans))
-                            {{ $value->diffForHumans() }}
+                            {{ differenceInDays($value) }}
                             @else
                             {{ $value }}
                             @endif

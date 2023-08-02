@@ -28,3 +28,14 @@ function homeRouteForAdmin(): string
 {
   return \App\Models\Setting::first()->analytics_retrieve_data ? 'admin.dashboard' : 'admin.galleries';
 }
+
+function differenceInDays($date): string
+{
+  $days = $date->diff(now())->days;
+  if ($days < 1)
+    return 'Today';
+  else if ($days === 1)
+    return '1 day ago';
+  else
+    return $days . ' days ago';
+}
