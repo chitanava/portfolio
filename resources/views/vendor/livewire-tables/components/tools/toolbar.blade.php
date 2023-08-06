@@ -34,18 +34,18 @@
 
             @if ($component->searchIsEnabled() && $component->searchVisibilityIsEnabled())
                 <div class="form-control">
-                    @if ($component->hasSearch())
+                    {{-- @if ($component->hasSearch())
                     <div class="input-group input-group-sm">
-                    @endif
-                    <input wire:model{{ $component->getSearchOptions() }}="{{ $component->getTableName() }}.search" type="text" placeholder="Search…" class="input input-bordered input-sm w-[170px]" />
-                    @if ($component->hasSearch())
+                    @endif --}}
+                    <input wire:model{{ $component->getSearchOptions() }}="{{ $component->getTableName() }}.search" type="text" placeholder="Search…" class="input input-bordered input-sm w-[230px]" />
+                    {{-- @if ($component->hasSearch())
                     <button wire:click.prevent="clearSearch" class="btn btn-square btn-link btn-sm border-[#d5d0d2] text-base-content hover:border-[#d5d0d2] border-l-0">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                     </div>
-                    @endif
+                    @endif --}}
                 </div>
 
                 {{-- <div class="flex rounded-md shadow-sm">
