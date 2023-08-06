@@ -57,7 +57,7 @@
                                 {{-- "Three Dots" Separator --}}
                                 @if (is_string($element))
                                     <span aria-disabled="true">
-                                        <span class="btn btn-sm btn-accent btn-disabled rounded-none">{{ $element }}</span>
+                                        <span class="btn btn-sm btn-ghost bg-base-200 hover:bg-base-200 cursor-default no-animation rounded-none">{{ $element }}</span>
                                     </span>
                                 @endif
 

@@ -13,8 +13,8 @@ class ImageTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
-        // $this->setPerPageAccepted([1]);
-        // $this->setPerPage(1);
+        $this->setPerPageAccepted([1]);
+        $this->setPerPage(1);
         $this->setColumnSelectStatus(false);
         $this->setPerPageVisibilityStatus(false);
         $this->setSortingPillsStatus(false);
