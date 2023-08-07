@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use Spatie\Analytics\Facades\Analytics;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\ImageController;
@@ -103,6 +104,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/galleries/{gallery}/albums/{album}/videos/{video}/edit', [AlbumVideoController::class, 'edit'])->name('galleries.albums.videos.edit');
         Route::put('/galleries/{gallery}/albums/{album}/videos/{video}', [AlbumVideoController::class, 'update'])->name('galleries.albums.videos.update');
         Route::delete('/galleries/{gallery}/albums/{album}/videos/{video}', [AlbumVideoController::class, 'destroy'])->name('galleries.albums.videos.destroy');
+
+        Route::resource('/posts', PostController::class);
         
         Route::fallback(function () {
             return abort(404);
