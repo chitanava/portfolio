@@ -2,19 +2,23 @@
 
 namespace App\Http\Livewire\Admin;
 
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Image;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Illuminate\Support\Facades\DB;
 
 class ImageTable extends DataTableComponent
 {
     protected $model = Image::class;
 
+    protected $i = 0;
+
     public function configure(): void
     {
         $this->setPrimaryKey('id');
-        $this->setPerPageAccepted([1]);
-        $this->setPerPage(1);
+        // $this->setPerPageAccepted([1]);
+        // $this->setPerPage(1);
         $this->setColumnSelectStatus(false);
         $this->setPerPageVisibilityStatus(false);
         $this->setSortingPillsStatus(false);
@@ -37,10 +41,10 @@ class ImageTable extends DataTableComponent
             'default' => false,
           ]);
 
-          $this->setThAttributes(function(Column $column) {
+          // $this->setThAttributes(function(Column $column) {
          
-            return ['default' => false];
-          });
+          //   return ['default' => false];
+          // });
 
           $this->setThSortButtonAttributes(function(Column $column) {
 
@@ -55,20 +59,76 @@ class ImageTable extends DataTableComponent
             return ['default' => false];
         });
 
-        $this->setTdAttributes(function(Column $column, $row, $columnIndex, $rowIndex) {
+        // $this->setTdAttributes(function(Column $column, $row, $columnIndex, $rowIndex) {
+        //     return ['default' => false];
+        //   });
+
+          $this->setThAttributes(function(Column $column) {
+            if ($column->isField('id')) {
+              return [
+                'class' => 'text-center',
+                'default' => false
+              ];
+            }
+            // if ($column->isField('title')) {
+            //   return [
+            //     'class' => 'w-full',
+            //     'default' => false
+            //   ];
+            // }
+         
             return ['default' => false];
           });
+
+          $this->setTdAttributes(function(Column $column, $row, $columnIndex, $rowIndex) {
+            if ($columnIndex === 3 ) {
+              return [
+                'class' => 'text-center',
+                'default' => false
+              ];
+            } 
+
+            if ($columnIndex === 0 ) {
+              return [
+                'class' => 'font-bold',
+                'default' => false
+              ];
+            } 
+
+            return ['default' => false];
+          });    
     }
 
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")
-                ->sortable(),
+            // Column::make("Id", "id")
+            //     ->sortable(),
+            Column::make('')
+    ->label(
+        function($row, Column $column) {
+          // dd($this);
+          $this->i++;
+          return $this->i + (($this->page - 1) * $this->perPage);
+        }
+    ),
 
             Column::make("Title", "title")
                 ->searchable()
                 ->sortable(),
+            Column::make("Crated at", "created_at")
+            ->format(
+              fn($value, $row, Column $column) => $value->diffForHumans()
+          )
+                ->sortable(),
+
+                Column::make("Actions", "id")
+                ->format(function ($value) {
+                    return view('components.admin.dynamic-table-dropdown')
+                        ->with('attributes', new \Illuminate\View\ComponentAttributeBag([
+                            'id' => $value,
+                        ]));
+                }),
             // Column::make("Caption", "caption")
             //     ->sortable(),
             // Column::make("Active", "active")
