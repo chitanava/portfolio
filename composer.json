@@ -19,6 +19,7 @@
         "rappasoft/laravel-livewire-tables": "^2.15",
         "spatie/laravel-analytics": "^5.0",
         "spatie/laravel-medialibrary": "^10.0.0",
+        "spatie/laravel-tags": "^4.5",
         "spatie/url": "^2.2"
     },
     "require-dev": {
