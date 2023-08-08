@@ -124,7 +124,7 @@ class PostTable extends DataTableComponent
                 ->sortable(),
             Column::make("Actions", "id")
                 ->format(function ($value) {
-                    return view('components.admin.dynamic-table-dropdown')
+                    return view('components.admin.datatable-actions-dropdown')
                         ->with('attributes', new \Illuminate\View\ComponentAttributeBag([
                             'id' => $value,
                         ]));
