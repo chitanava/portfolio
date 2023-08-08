@@ -38,8 +38,8 @@ class PostTable extends DataTableComponent
         $this->setSortingPillsStatus(false);
         $this->setDefaultSort('id', 'desc');
 
-        // $this->setPerPageAccepted([2]);
-        // $this->setPerPage(2);
+        // $this->setPerPageAccepted([1]);
+        // $this->setPerPage(1);
 
         $this->setTableWrapperAttributes([
             'default' => false,
@@ -70,7 +70,7 @@ class PostTable extends DataTableComponent
         });
 
         $this->setThAttributes(function (Column $column) {
-            if ($column->isField('id')) {
+            if ($column->isField('active') || $column->isField('id')) {
                 return [
                     'class' => 'text-center',
                     'default' => false
@@ -81,7 +81,7 @@ class PostTable extends DataTableComponent
         });
 
         $this->setTdAttributes(function (Column $column, $row, $columnIndex, $rowIndex) {
-            if ($columnIndex === 4) {
+            if ($columnIndex === 4 || $columnIndex === 5) {
                 return [
                     'class' => 'text-center',
                     'default' => false
@@ -122,6 +122,11 @@ class PostTable extends DataTableComponent
                     fn ($value, $row, Column $column) => $value->format('d.m.Y, H:i')
                 )
                 ->sortable(),
+            \Rappasoft\LaravelLivewireTables\Views\Columns\ComponentColumn::make('Active', 'active')
+                ->component('admin.datatable-active-toggle')
+                ->attributes(fn ($value, $row, Column $column) => [
+                    'item' => $row,
+                ]),
             Column::make("Actions", "id")
                 ->format(function ($value) {
                     return view('components.admin.datatable-actions-dropdown')
@@ -129,7 +134,6 @@ class PostTable extends DataTableComponent
                             'id' => $value,
                         ]));
                 }),
-
         ];
     }
 }
