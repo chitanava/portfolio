@@ -31,7 +31,9 @@
               <span class="label-text">Body</span>
             </label>
             <input id="x" type="hidden" name="body" value="{{ old('body') }}">
-            <trix-editor data-trix-attachment-add-url="{!! route('admin.biography.attachment.add') !!}" data-trix-attachment-remove-url="{!! route('admin.biography.attachment.remove') !!}" input="x" class="trix-content textarea textarea-bordered min-h-[15rem] rounded-none">
+            <trix-editor data-trix-attachment-add-url="{!! route('admin.biography.attachment.add') !!}"
+              data-trix-attachment-remove-url="{!! route('admin.biography.attachment.remove') !!}" input="x"
+              class="trix-content textarea textarea-bordered min-h-[15rem] rounded-none">
             </trix-editor>
             @error('body')
             <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
@@ -61,16 +63,19 @@
         </div>
       </div>
 
-      <div class="card bg-base-100 shadow col-span-3 xl:col-span-1">
-        <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Image</div>
-        <div class="card-body space-y-4">
-          <div class="form-control w-full">
-            <input type="file" name="image" class="file-input file-input-bordered file-input-ghost w-full" />
-            @error('image')
-            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
-            @enderror
+      <div class="col-span-3 xl:col-span-1 space-y-8">
+        <div class="card bg-base-100 shadow">
+          <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Image</div>
+          <div class="card-body space-y-4">
+            <div class="form-control w-full">
+              <input type="file" name="image" class="file-input file-input-bordered file-input-ghost w-full" />
+              @error('image')
+              <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+              @enderror
+            </div>
           </div>
         </div>
+        <livewire:admin.post-tags/>
       </div>
     </div>
 
