@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Tag;
+use Spatie\Tags\HasTags;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -14,6 +16,8 @@ class Post extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     use Sluggable;
+    use HasTags;
+
 
     protected $fillable = [
         'title',
@@ -26,6 +30,18 @@ class Post extends Model implements HasMedia
     protected $casts = [
         'published_at' => 'datetime',
     ];
+
+    protected static function booted(): void
+    {
+        static::deleting(function (Post $post) {
+            $post->syncTags([]);
+        });
+
+        static::deleted(function (Post $post) {
+            $tagsWithoutPosts = Tag::whereDoesntHave('posts')->pluck('id');
+            Tag::destroy($tagsWithoutPosts);
+        });
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {

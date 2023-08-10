@@ -75,7 +75,10 @@
             </div>
           </div>
         </div>
-        <livewire:admin.post-tags/>
+        @php
+          $old = collect(json_decode(old('post_tags'), true));
+        @endphp
+        <livewire:admin.post-tags :postTags="$old"/>
       </div>
     </div>
 

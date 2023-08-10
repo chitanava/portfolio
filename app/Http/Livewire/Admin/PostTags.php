@@ -9,21 +9,36 @@ class PostTags extends Component
 {
     public Collection $tags;
     public $inputTag;
+    public $postTags;
+    public Collection $suggestions;
 
     public function mount()
     {
         $this->fill([
-            'tags' => collect([])
+            'tags' => collect($this->postTags ? $this->postTags : []),
+            'suggestions' => collect()
         ]);
+    }
+
+    public function updatedInputTag(string $tag)
+    {
+        if (\Illuminate\Support\Str::length($tag) > 1) {
+            $this->suggestions = \Spatie\Tags\Tag::containing($tag)->get();
+        } else {
+            $this->suggestions = collect();
+        }
     }
 
     public function addTag(string $tag)
     {
-        if (!($this->tags->contains(function (array $value, int $key) use ($tag) {
-            return $value['name'] === $tag;
-        }))) {
-            $this->tags->push(['name' => $tag]);
-            $this->reset('inputTag');
+        if (!empty($tag)) {
+            if (!($this->tags->contains(function (array $value, int $key) use ($tag) {
+                return $value['name'] === $tag;
+            }))) {
+                $this->tags->push(['name' => $tag]);
+                $this->reset('inputTag');
+                $this->suggestions = collect();
+            }
         }
     }
 

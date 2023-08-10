@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -32,6 +33,13 @@ class PostController extends Controller
     {
         $post = Post::create($request->except(['image']));
 
+        if ($tags = json_decode($request->post_tags, true)) {
+            $tags = Arr::map($tags, function ($value, $key) {
+                return $value['name'];
+            });
+        }
+        $post->attachTags($tags);
+
         if ($request->hasFile('image')) {
             $post->addMediaFromRequest('image')->toMediaCollection();
         }
@@ -52,7 +60,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.post.edit', ['post' => $post]);
+        $tags = $post->tags()->get()->map(function ($value, $key) {
+            return ['name' => $value->name];
+        });
+
+        return view('admin.post.edit', ['post' => $post, 'tags' => $tags]);
     }
 
     /**
@@ -61,6 +73,13 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         $post->update($request->except(['image']));
+
+        if ($tags = json_decode($request->post_tags, true)) {
+            $tags = Arr::map($tags, function ($value, $key) {
+                return $value['name'];
+            });
+        }
+        $post->syncTags($tags);
 
         if ($request->hasFile('image')) {
             if ($post->getMedia()->isNotEmpty()) {
@@ -83,7 +102,7 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()
-                ->route('admin.posts.index')
-                ->with('status', 'Post deleted.');
+            ->route('admin.posts.index')
+            ->with('status', 'Post deleted.');
     }
 }

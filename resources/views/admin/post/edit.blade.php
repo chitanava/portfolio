@@ -60,8 +60,8 @@
             <label for="published_at" class="label">
               <span class="label-text">Published at</span>
             </label>
-            <input type="datetime-local" name="published_at" value="{{ old('published_at', $post->published_at) }}" id="published_at"
-              class="input input-bordered" />
+            <input type="datetime-local" name="published_at" value="{{ old('published_at', $post->published_at) }}"
+              id="published_at" class="input input-bordered" />
             @error('published_at')
             <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
             @enderror
@@ -69,19 +69,25 @@
         </div>
       </div>
 
-      <div class="card bg-base-100 shadow col-span-3 xl:col-span-1">
-        <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Image</div>
-        <div class="p-8 space-y-6">
-          <figure>
-            <img src="{{ $post->getFirstMediaUrl('default', 'md') }}" class="max-w-xs rounded-xl" />
-          </figure>
-          <div class="form-control w-full">
-            <input type="file" name="image" class="file-input file-input-bordered file-input-ghost w-full" />
-            @error('image')
-            <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
-            @enderror
+      <div class="col-span-3 xl:col-span-1 space-y-8">
+        <div class="card bg-base-100 shadow">
+          <div class="p-4 bg-base-content font-bold text-lg rounded-t-2xl text-base-100">Image</div>
+          <div class="p-8 space-y-6">
+            <figure>
+              <img src="{{ $post->getFirstMediaUrl('default', 'md') }}" class="max-w-xs rounded-xl" />
+            </figure>
+            <div class="form-control w-full">
+              <input type="file" name="image" class="file-input file-input-bordered file-input-ghost w-full" />
+              @error('image')
+              <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+              @enderror
+            </div>
           </div>
         </div>
+        @php
+          $old = collect(json_decode(old('post_tags'), true));
+        @endphp
+        <livewire:admin.post-tags :postTags="$old->isNotEmpty() ? $old : $tags"/>
       </div>
     </div>
 
