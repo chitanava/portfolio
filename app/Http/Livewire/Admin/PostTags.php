@@ -38,6 +38,8 @@ class PostTags extends Component
                 $this->tags->push(['name' => $tag]);
                 $this->reset('inputTag');
                 $this->suggestions = collect();
+
+                $this->emit('inputTagAutoFocus');
             }
         }
     }

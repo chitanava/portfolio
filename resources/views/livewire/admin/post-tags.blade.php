@@ -19,7 +19,8 @@
                 </div>
                 @endif
                 <input type="hidden" name="post_tags" value="{{ $tags->toJson() }}">
-                <input wire:keydown.enter.prevent="addTag($event.target.value)"
+                <input x-init="$wire.on('inputTagAutoFocus', () => {$el.focus()})" id="foo"
+                    wire:keydown.enter.prevent="addTag($event.target.value)"
                     wire:keydown.space.prevent="addTag($event.target.value)" wire:model="inputTag" type="text"
                     class="input input-bordered" />
 
