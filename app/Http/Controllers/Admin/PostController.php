@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Services\TagsService;
 
 class PostController extends Controller
 {
@@ -29,16 +30,11 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePostRequest $request)
+    public function store(StorePostRequest $request, TagsService $tagsService)
     {
         $post = Post::create($request->except(['image']));
 
-        if ($tags = json_decode($request->post_tags, true)) {
-            $tags = Arr::map($tags, function ($value, $key) {
-                return $value['name'];
-            });
-        }
-        $post->attachTags($tags);
+        $tagsService->attach($post, $request->post_tags);
 
         if ($request->hasFile('image')) {
             $post->addMediaFromRequest('image')->toMediaCollection();
@@ -70,16 +66,11 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post, TagsService $tagsService)
     {
         $post->update($request->except(['image']));
 
-        if ($tags = json_decode($request->post_tags, true)) {
-            $tags = Arr::map($tags, function ($value, $key) {
-                return $value['name'];
-            });
-        }
-        $post->syncTags($tags);
+        $tagsService->sync($post, $request->post_tags);
 
         if ($request->hasFile('image')) {
             if ($post->getMedia()->isNotEmpty()) {
