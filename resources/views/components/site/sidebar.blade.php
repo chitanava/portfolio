@@ -18,6 +18,9 @@
               <a href="{{ route('gallery', $gallery->slug) }}" class="text-xl font-bold hover:text-gray-900 block py-1 {{ active_gallery_link('gallery*', $gallery->slug) ? 'text-gray-900' : 'text-gray-500' }}">{{ $gallery->title }}</a>
             </li>      
           @endforeach
+          <li>
+            <a href="{{ route('posts') }}" class="text-xl font-bold hover:text-gray-900 block py-1 {{ active_link('posts*') ? 'text-gray-900' : 'text-gray-500' }}">{{ __('common.Blog') }}</a>
+          </li>
         </ul>
       </nav>
 

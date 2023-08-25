@@ -8,6 +8,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -31,6 +32,16 @@ class Post extends Model implements HasMedia
         'published_at' => 'datetime',
     ];
 
+    public function scopeIsActive(Builder $query): void
+    {
+        $query->where('active', '=', 1);
+    }
+
+    public function scopeIsPublished(Builder $query): void
+    {
+        $query->whereNotNull('published_at')->where('published_at', '<', now());
+    }
+
     protected static function booted(): void
     {
         static::deleting(function (Post $post) {
@@ -46,12 +57,12 @@ class Post extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('md')
-                ->width(600)
-                ->height(600);
+            ->width(600)
+            ->height(600);
 
         $this->addMediaConversion('sm')
-                ->width(200)
-                ->height(200);
+            ->width(200)
+            ->height(200);
     }
 
     public function sluggable(): array

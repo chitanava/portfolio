@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\AlbumImageController;
 use App\Http\Controllers\Admin\AlbumVideoController;
 use App\Http\Controllers\Admin\GalleryImageController;
 use App\Http\Controllers\Admin\GalleryVideoController;
+use App\Http\Livewire\ShowPosts;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/biography', [\App\Http\Controllers\BiographyController::class, 'index'])->name('biography');
 Route::get('/galleries/{gallery:slug}', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery');
 Route::get('/galleries/{gallery:slug}/albums/{album:slug}', [\App\Http\Controllers\AlbumController::class, 'index'])->name('gallery.album');
+Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index'])->name('posts');
 
 Route::get('/admin', function(){
     return redirect()->route(homeRouteForAdmin());
@@ -110,5 +112,6 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::fallback(function () {
             return abort(404);
         });
+
     });
 });

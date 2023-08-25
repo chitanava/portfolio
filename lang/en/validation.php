@@ -183,6 +183,7 @@ return [
         'seo_description' => 'description',
         'seo_keywords' => 'keywords',
         'home_images' => 'number of images',
+        'searchKey' => 'search'
     ],
 
 ];
