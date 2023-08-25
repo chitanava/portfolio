@@ -112,14 +112,14 @@ class PostTable extends DataTableComponent
             Column::make("Title", "title")
                 ->searchable()
                 ->sortable(),
-            Column::make("Crated at", "created_at")
+            Column::make("Created at", "created_at")
                 ->format(
                     fn ($value, $row, Column $column) => $value->format('d.m.Y, H:i')
                 )
                 ->sortable(),
             Column::make("published at", "published_at")
                 ->format(
-                    fn ($value, $row, Column $column) => $value->format('d.m.Y, H:i')
+                    fn ($value, $row, Column $column) => $value?->format('d.m.Y, H:i')
                 )
                 ->sortable(),
             \Rappasoft\LaravelLivewireTables\Views\Columns\ComponentColumn::make('Active', 'active')
