@@ -11,4 +11,9 @@ class PostController extends Controller
     {
         return view('site.posts.index');
     }
+
+    public function show(Post $post)
+    {
+        return view('site.posts.show', ['post' => $post]);
+    }
 }

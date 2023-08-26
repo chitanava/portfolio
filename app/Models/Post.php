@@ -11,6 +11,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Post extends Model implements HasMedia
 {
@@ -31,6 +32,11 @@ class Post extends Model implements HasMedia
     protected $casts = [
         'published_at' => 'datetime',
     ];
+
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(\App\Models\Tag::class, 'taggable');
+    }
 
     public function scopeIsActive(Builder $query): void
     {
