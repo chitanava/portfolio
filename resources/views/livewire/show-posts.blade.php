@@ -34,10 +34,10 @@
                 <div>
                     @foreach ($tagsData as $indx => $tag)
                     @if (in_array($tag->slug, $tags))
-                    <a wire:click.prevent="$set('tags.{{ $indx }}', null)" class="text-gray-900 hover:text-gray-900"
+                    <a wire:click.prevent="$set('tags.{{ $tag->order_column }}', null)" class="text-gray-900 hover:text-gray-900"
                         href="">
                         @else
-                        <a wire:click.prevent="$set('tags.{{ $indx }}', '{{ $tag->slug }}')"
+                        <a wire:click.prevent="$set('tags.{{ $tag->order_column }}', '{{ $tag->slug }}')"
                             class="text-gray-500 hover:text-gray-900" href="">
                             @endif
                             {{ $tag->name }}</a>@if( !$loop->last),@endif
@@ -53,22 +53,27 @@
         <div x-data="{
         loadMore: @entangle('showLoadMore')
     }" class="lg:col-span-2">
-            <div class="flex flex-col gap-14">
+            <div class="flex flex-col gap-10">
                 @foreach ($posts as $post)
+                @if (!$loop->first)
+                <hr> 
+                @endif
                 <div wire:key="{{ $post->slug }}" class="item">
-                    <div>
-                        <a href="#" class="inline-block"><img src="{{ $post->media[0]->getUrl('md') }}"
+                    @if ($post->media->isNotEmpty())
+                    <div class="mb-2">
+                        <a href="{{ route('posts.show', $post->slug) }}" class="inline-block"><img src="{{ $post->media[0]->getUrl('md') }}"
                                 alt="{{ $post->title }}"></a>
                     </div>
+                    @endif
                     <div>
-                        <p class="text-xs text-gray-400 mb-3">Published on {{ $post->published_at->format('F d, Y')}}
+                        <h2 class="font-bold text-lg mb-4"><a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a></h2>
+                        <p class="text-xs text-gray-400 mb-2 italic">{{ $post->published_at->format('F d, Y')}}
                         </p>
-                        <h2 class="font-bold text-lg"><a href="">{{ $post->title }}</a></h2>
-                        <p class="mb-3">{{ Str::words(strip_tags($post->body), 20, '...') }}</p>
-                        <p class="text-sm"><a class="text-gray-500 hover:text-gray-900" href="#">Read More</a></p>
+                        <p class="mb-4">{{ Str::words(strip_tags($post->body), 20, '...') }}</p>
+                        <p class="text-sm"><a class="text-gray-500 hover:text-gray-900" href="{{ route('posts.show', $post->slug) }}">Read More</a></p>
                     </div>
                 </div>
-
+                
                 @endforeach
                 <div wire:loading wire:target="loadMore" aria-label="Loading..." role="status">
                     <svg class="h-6 w-6 animate-spin m-auto" viewBox="3 3 18 18">
