@@ -39,7 +39,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/biography', [\App\Http\Controllers\BiographyController::class, 'index'])->name('biography');
 Route::get('/galleries/{gallery:slug}', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery');
 Route::get('/galleries/{gallery:slug}/albums/{album:slug}', [\App\Http\Controllers\AlbumController::class, 'index'])->name('gallery.album');
-Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index'])->name('posts');
+
+if (\App\Models\Setting::first()->blog) {
+    Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
+    Route::get('/posts/{post:slug}', [\App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
+}
 
 Route::get('/admin', function(){
     return redirect()->route(homeRouteForAdmin());
