@@ -7,9 +7,6 @@
       </h2>
       <nav>
         <ul>
-            {{-- <li>
-              <a href="{{ route('home') }}" class="text-xl font-bold hover:text-gray-900 block py-1 {{ active_link('home') ? 'text-gray-900' : 'text-gray-500' }}">{{ __('common.Home') }}</a>
-            </li> --}}
           <li>
             <a href="{{ route('biography') }}" class="text-xl font-bold hover:text-gray-900 block py-1 {{ active_link('biography') ? 'text-gray-900' : 'text-gray-500' }}">{{ __('common.Biography') }}</a>
           </li>
@@ -18,9 +15,11 @@
               <a href="{{ route('gallery', $gallery->slug) }}" class="text-xl font-bold hover:text-gray-900 block py-1 {{ active_gallery_link('gallery*', $gallery->slug) ? 'text-gray-900' : 'text-gray-500' }}">{{ $gallery->title }}</a>
             </li>      
           @endforeach
+          @if ($settings->blog)            
           <li>
-            <a href="{{ route('posts') }}" class="text-xl font-bold hover:text-gray-900 block py-1 {{ active_link('posts*') ? 'text-gray-900' : 'text-gray-500' }}">{{ __('common.Blog') }}</a>
+            <a href="{{ route('posts.index') }}" class="text-xl font-bold hover:text-gray-900 block py-1 {{ active_link('posts*') ? 'text-gray-900' : 'text-gray-500' }}">{{ __('common.Blog') }}</a>
           </li>
+          @endif
         </ul>
       </nav>
 

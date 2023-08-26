@@ -46,6 +46,7 @@ class SettingController extends Controller
             'analytics_retrieve_data' => 'required',
             'analytics_property_id' => 'nullable|string',
             'analytics_secret_json' => 'nullable|mimes:json|max:'.config('app.upload_max_filesize'),
+            'blog' => 'required',
         ]);
         
         $settings = Setting::firstOrFail();
@@ -60,6 +61,7 @@ class SettingController extends Controller
             'google_tag' => $request->google_tag,
             'analytics_retrieve_data' => $request->analytics_retrieve_data,
             'analytics_property_id' => $request->analytics_property_id,
+            'blog' => $request->blog,
         ]);
 
         if($request->file('analytics_secret_json')) {
