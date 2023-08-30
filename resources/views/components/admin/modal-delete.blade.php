@@ -1,3 +1,7 @@
+@props([
+  'isLivewire' => false
+])
+
 <input type="checkbox" id="modal-delete" class="modal-toggle" />
 <div 
   class="modal"
@@ -6,6 +10,14 @@
     title: '',
     body: '',
     pending: false,
+    @if ($isLivewire)      
+    trigger: {
+      ['@click.debounce']() {
+        const data = JSON.parse(this.action);
+        Livewire.emit(data.action, data.id)
+      },
+    },
+    @endif
   }" 
   x-init="() => {
     Livewire.hook('message.sent', (message, component) => {
@@ -44,6 +56,11 @@
       </template>
 
     <div class="modal-action">
+      @if ($isLivewire)
+      <label for="modal-delete"
+        <button x-bind="trigger" class="btn btn-secondary">Yes, Delete</button>
+      </label>
+      @else
       <form  
         :action="action" 
         method="POST">
@@ -51,6 +68,8 @@
         @method('DELETE')
         <button class="btn btn-secondary">Yes, Delete</button>
       </form>
+      @endif
+
       <label for="modal-delete" class="btn btn-active btn-ghost">Close</label>
     </div>
   </div>

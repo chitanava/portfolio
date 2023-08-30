@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use Spatie\Analytics\Facades\Analytics;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\ImageController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Admin\AlbumImageController;
 use App\Http\Controllers\Admin\AlbumVideoController;
 use App\Http\Controllers\Admin\GalleryImageController;
 use App\Http\Controllers\Admin\GalleryVideoController;
+use App\Http\Livewire\ShowPosts;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/biography', [\App\Http\Controllers\BiographyController::class, 'index'])->name('biography');
 Route::get('/galleries/{gallery:slug}', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery');
 Route::get('/galleries/{gallery:slug}/albums/{album:slug}', [\App\Http\Controllers\AlbumController::class, 'index'])->name('gallery.album');
+
+if (\App\Models\Setting::first()->blog) {
+    Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
+    Route::get('/posts/{post:slug}', [\App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
+}
 
 Route::get('/admin', function(){
     return redirect()->route(homeRouteForAdmin());
@@ -103,9 +110,12 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/galleries/{gallery}/albums/{album}/videos/{video}/edit', [AlbumVideoController::class, 'edit'])->name('galleries.albums.videos.edit');
         Route::put('/galleries/{gallery}/albums/{album}/videos/{video}', [AlbumVideoController::class, 'update'])->name('galleries.albums.videos.update');
         Route::delete('/galleries/{gallery}/albums/{album}/videos/{video}', [AlbumVideoController::class, 'destroy'])->name('galleries.albums.videos.destroy');
+
+        Route::resource('/posts', PostController::class);
         
         Route::fallback(function () {
             return abort(404);
         });
+
     });
 });

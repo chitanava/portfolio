@@ -20,6 +20,18 @@
               <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
             @enderror
           </div>
+          
+          <div class="form-control items-start">
+            <label class="label cursor-pointer gap-4">
+              <span class="label-text">Blog</span> 
+              <input type="hidden" name="blog" value="0">
+              <input type="checkbox" name="blog" value="1" class="toggle" @checked(old('blog', $settings->blog)) />
+            </label>
+            <p class="text-xs px-1 pt-2 base-content">Enabling the blog will allow it to be shown in the navigation of the site.</p>
+            @error('blog')
+              <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
+            @enderror
+          </div>
 
           <div class="form-control items-start">
             <label class="label cursor-pointer gap-4">

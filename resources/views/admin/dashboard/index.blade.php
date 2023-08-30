@@ -9,4 +9,5 @@
     <livewire:admin.retrieve-analytics-data wire:key="id-3" title="Most visited pages" method="fetchMostVisitedPages"/>
     <livewire:admin.retrieve-analytics-data wire:key="id-4" title="Top browsers" method="fetchTopBrowsers"/>
   </div>
+
 </x-admin.layout.app>

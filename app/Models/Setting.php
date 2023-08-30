@@ -21,5 +21,6 @@ class Setting extends Model
         'google_tag',
         'analytics_retrieve_data',
         'analytics_property_id',
+        'blog',
     ];
 }
