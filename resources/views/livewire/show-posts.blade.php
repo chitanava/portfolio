@@ -34,12 +34,12 @@
                 <div>
                     @foreach ($tagsData as $indx => $tag)
                     @if (in_array($tag->slug, $tags))
-                    <a wire:click.prevent="$set('tags.{{ $tag->order_column }}', null)" class="text-gray-900 hover:text-gray-900"
+                    <a wire:click.prevent="$set('tags.{{ $tag->order_column }}', null)" class="text-gray-900 hover:text-gray-900 font-bold"
                         href="">
-                        @else
-                        <a wire:click.prevent="$set('tags.{{ $tag->order_column }}', '{{ $tag->slug }}')"
-                            class="text-gray-500 hover:text-gray-900" href="">
-                            @endif
+                    @else
+                    <a wire:click.prevent="$set('tags.{{ $tag->order_column }}', '{{ $tag->slug }}')"
+                        class="text-gray-500 hover:text-gray-900" href="">
+                    @endif
                             {{ $tag->name }}</a>@if( !$loop->last),@endif
                         @endforeach
                 </div>
