@@ -11,27 +11,24 @@ class GalleryController extends Controller
     public function index(Gallery $gallery)
     {
         $albums = $gallery->albums()
+            ->with('media')
             ->where('active', 1)
             ->orderBy('ord', 'asc')
             ->get();
 
         $images = $gallery->images()
+            ->with('media')
             ->where('active', 1)
             ->orderBy('ord', 'asc')
             ->get();
 
         $videos = $gallery->videos()
+            ->with('media')
             ->where('active', 1)
             ->orderBy('ord', 'asc')
             ->get();
 
-        $galleryItems = $albums
-            ->concat($images)
-            ->concat($videos)
-            ->sortBy('ord')
-            ->values();
-
-            // dd($galleryItems[10]->class);
+        $galleryItems = collect([$albums, $images, $videos])->flatten(1)->sortBy('ord')->values();
 
         return view('site.gallery', ['gallery' => $gallery, 'galleryItems' => $galleryItems]);
     }

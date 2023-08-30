@@ -15,23 +15,25 @@ class AlbumController extends Controller
         abort_if(!$album->active, 404);
 
         $images = $album->images()
-            ->where('active', 1)
-            ->orderBy('ord', 'asc')
-            ->get();
-        
-        $videos = $album->videos()
+            ->with('media')
             ->where('active', 1)
             ->orderBy('ord', 'asc')
             ->get();
 
-        $albumItems = $images
-            ->concat($videos)
+        $videos = $album->videos()
+            ->with('media')
+            ->where('active', 1)
+            ->orderBy('ord', 'asc')
+            ->get();
+
+        $albumItems = collect([$images, $videos])->flatten(1)
             ->sortBy('ord')
             ->values();
 
         return view('site.album', [
-            'gallery' => $gallery, 
-            'album' => $album, 
-            'albumItems' => $albumItems]);
+            'gallery' => $gallery,
+            'album' => $album,
+            'albumItems' => $albumItems
+        ]);
     }
 }
