@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Traits\ItemsTrait;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
 class GalleryItemsList extends Component
 {
+    use ItemsTrait;
+
     public $gallery;
     public $data = [];
 
@@ -74,29 +77,7 @@ class GalleryItemsList extends Component
 
     protected function concatedData()
     {
-        $albums = $this->gallery
-                    ->albums()
-                    ->orderBy('ord', 'asc')
-                    ->get();
-
-        $images = $this->gallery
-                    ->images()
-                    ->orderBy('ord', 'asc')
-                    ->get();
-
-        $videos = $this->gallery
-                    ->videos()
-                    ->orderBy('ord', 'asc')
-                    ->get();
-
-        $concated = $albums
-                        ->concat($images)
-                        ->concat($videos)
-                        ->sortBy('ord')
-                        ->values();
-                        // ->toArray();
-        
-        return collect($concated);
+        return $this->galleryItems($this->gallery, false);
     }
 
     public function render()
