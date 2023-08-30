@@ -26,7 +26,7 @@ class StorePostRequest extends FormRequest
             'body' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:' . config('app.upload_max_filesize'),
             'active' => 'required',
-            'published_at' => 'nullable|date',
+            'published_at' => 'nullable|date|unique:posts',
         ];
     }
 }
