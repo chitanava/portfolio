@@ -38,8 +38,8 @@
               <span class="label-text">Body</span>
             </label>
             <input id="x" type="hidden" name="body" value="{{ old('body', $post->body) }}">
-            <trix-editor data-trix-attachment-add-url="{!! route('admin.biography.attachment.add') !!}"
-              data-trix-attachment-remove-url="{!! route('admin.biography.attachment.remove') !!}" input="x"
+            <trix-editor data-trix-attachment-add-url="{!! route('admin.posts.attachment.add') !!}"
+              data-trix-attachment-remove-url="{!! route('admin.posts.attachment.remove') !!}" input="x"
               class="trix-content textarea textarea-bordered white rounded-none min-h-[15rem]"></trix-editor>
             @error('body')
             <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
@@ -105,7 +105,7 @@
   @endpush
 
   @push('footer-scripts')
-  <script src="{!! asset('storage/js/trix-attachment.js') !!}"></script>
+  <script src="{!! asset('js/trix-attachment.js') !!}"></script>
   @endpush
 
 </x-admin.layout.app>

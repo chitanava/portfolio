@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
 use Illuminate\Support\Arr;
+use App\Services\TagsService;
+use App\Http\Traits\TrixAttachment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Services\TagsService;
 
 class PostController extends Controller
 {
+    use TrixAttachment;
+    
     /**
      * Display a listing of the resource.
      */

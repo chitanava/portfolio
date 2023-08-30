@@ -31,8 +31,8 @@
               <span class="label-text">Body</span>
             </label>
             <input id="x" type="hidden" name="body" value="{{ old('body') }}">
-            <trix-editor data-trix-attachment-add-url="{!! route('admin.biography.attachment.add') !!}"
-              data-trix-attachment-remove-url="{!! route('admin.biography.attachment.remove') !!}" input="x"
+            <trix-editor data-trix-attachment-add-url="{!! route('admin.posts.attachment.add') !!}"
+              data-trix-attachment-remove-url="{!! route('admin.posts.attachment.remove') !!}" input="x"
               class="trix-content textarea textarea-bordered min-h-[15rem] rounded-none">
             </trix-editor>
             @error('body')
@@ -92,7 +92,7 @@
   @endpush
 
   @push('footer-scripts')
-  <script src="{!! asset('storage/js/trix-attachment.js') !!}"></script>
+  <script src="{!! asset('js/trix-attachment.js') !!}"></script>
   @endpush
 
 </x-admin.layout.app>

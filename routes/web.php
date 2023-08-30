@@ -112,6 +112,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::delete('/galleries/{gallery}/albums/{album}/videos/{video}', [AlbumVideoController::class, 'destroy'])->name('galleries.albums.videos.destroy');
 
         Route::resource('/posts', PostController::class);
+        Route::post('/posts/attachment-add', [PostController::class, 'attachmentAdd'])->name('posts.attachment.add');
+        Route::post('/posts/attachment-remove', [PostController::class, 'attachmentRemove'])->name('posts.attachment.remove');
         
         Route::fallback(function () {
             return abort(404);

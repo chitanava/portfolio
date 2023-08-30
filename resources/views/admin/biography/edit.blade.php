@@ -10,7 +10,8 @@
       <div class="card-body space-y-4">
         <div class="form-control w-full">
           <input id="x" type="hidden" name="body" value="{{ old('body', $biography->body) }}">
-          <trix-editor input="x" class="trix-content textarea textarea-bordered white rounded-none min-h-[15rem]"></trix-editor>
+          <trix-editor data-trix-attachment-add-url="{!! route('admin.biography.attachment.add') !!}"
+          data-trix-attachment-remove-url="{!! route('admin.biography.attachment.remove') !!}" input="x" class="trix-content textarea textarea-bordered white rounded-none min-h-[15rem]"></trix-editor>
           @error('body')
           <p class="text-xs text-error px-1 pt-2">{{ $message }}</p>
         @enderror
@@ -28,46 +29,7 @@
   @endpush
 
   @push('footer-scripts')
-    <script>
-      (function(){
-        addEventListener("trix-attachment-add", function(event) {
-          const data = new FormData()
-          data.append("Content-Type", event.attachment.file.type)
-          data.append("file", event.attachment.file)
-
-          axios.post("{{ route('admin.biography.attachment.add') }}", data, {
-            onUploadProgress: (progressEvent) => {
-              let progress = progressEvent.loaded / progressEvent.total * 100
-              event.attachment.setUploadProgress(progress)
-            }
-          }).then((res) => {
-            if(res.data.success === false){
-              event.attachment.remove()
-              alert(res.data.message)
-            } else {
-              const attributes = {
-                url: res.data.url,
-                file: res.data.file,
-              }
-
-              if(event.attachment.file.type === 'application/pdf'){
-                attributes.href = `${res.data.url}?content-disposition=attachment`
-              }
-
-              event.attachment.setAttributes(attributes)
-            }
-          })
-        })
-
-        addEventListener("trix-attachment-remove", function(event) {
-            axios.post("{{ route('admin.biography.attachment.remove') }}", {
-              file: event.attachment.attachment.attributes.values.file,
-            }).then((res) => {
-              console.log(res.data)
-            })
-        })
-      })();
-    </script>
+    <script src="{!! asset('js/trix-attachment.js') !!}"></script>
   @endpush
 
 </x-admin.layout.app>
