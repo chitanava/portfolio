@@ -14,6 +14,18 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return view('site.posts.show', ['post' => $post]);
+        $previous = $post->IsActive()
+                        ->isPublished()
+                        ->where('published_at', '<', $post->published_at)
+                        ->orderBy('published_at', 'desc')
+                        ->first();
+
+        $next = $post->IsActive()
+                    ->isPublished()
+                    ->where('published_at', '>', $post->published_at)
+                    ->orderBy('published_at', 'asc')
+                    ->first();
+
+        return view('site.posts.show', ['post' => $post, 'previous' => $previous, 'next' => $next]);
     }
 }
