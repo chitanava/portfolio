@@ -54,6 +54,10 @@
         loadMore: @entangle('showLoadMore')
     }" class="lg:col-span-2">
             <div class="flex flex-col gap-10">
+                @if($posts->isEmpty())
+                    <div class="text-center mx-10">We couldn't find any posts matching your search. Feel free to try using different keywords.</div>
+                @endif
+
                 @foreach ($posts as $post)
                 @if (!$loop->first)
                 <hr> 
