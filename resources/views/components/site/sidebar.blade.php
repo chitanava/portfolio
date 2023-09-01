@@ -23,6 +23,8 @@
         </ul>
       </nav>
 
+      <div x-data x-show="$store.app.showHomeSliderControls" x-cloak class="slider-controls hidden lg:block"></div>
+
       <div class="hidden lg:block">
         <div class="flex flex-col gap-10"> 
             {{ $slot }}

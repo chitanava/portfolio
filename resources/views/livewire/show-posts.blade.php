@@ -46,8 +46,8 @@
             </div>
             <div 
                 x-data 
-                x-intersect:leave="$store.scrollToTop = true" 
-                x-intersect:enter="$store.scrollToTop = false">
+                x-intersect:leave="$store.app.scrollToTop = true" 
+                x-intersect:enter="$store.app.scrollToTop = false">
             </div>
         </div>
         <div x-data="{
@@ -110,7 +110,7 @@
     </div>
     <div 
         x-data 
-        x-show="$store.scrollToTop" 
+        x-show="$store.app.scrollToTop" 
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-full"
         x-transition:enter-end="opacity-100 translate-y-0"

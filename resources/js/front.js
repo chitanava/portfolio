@@ -4,5 +4,8 @@ import intersect from '@alpinejs/intersect'
 
 window.Alpine = Alpine
 Alpine.plugin(intersect)
-Alpine.store('showScrollToTop', false)
+Alpine.store('app', {
+  scrollToTop: false,
+  showHomeSliderControls: false,
+})
 Alpine.start()
